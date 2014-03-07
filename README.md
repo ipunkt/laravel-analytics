@@ -4,12 +4,6 @@
 
 Add to your composer.json following lines
 
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/ipunkt/laravel-analytics"
-		}
-	],
 	"require": {
 		"ipunkt/laravel-analytics": "dev-master"
 	}
