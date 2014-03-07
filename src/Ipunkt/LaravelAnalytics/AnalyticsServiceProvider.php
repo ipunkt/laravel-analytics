@@ -32,16 +32,16 @@ class AnalyticsServiceProvider extends ServiceProvider {
 		$this->app->bind('analytics', function () {
 
 			//	get analytics provider name
-			$provider = Config::get('ipunkt/laravel-analytics::analytics.provider');
+			$provider = Config::get('laravel-analytics::analytics.provider');
 
 			//	make it a class
 			$providerClass = 'Ipunkt\LaravelAnalytics\Providers\\' . $provider;
 
 			//	getting the config
 			$providerConfig = [];
-			if (Config::has('analytics.configurations.' . $provider))
+			if (Config::has('laravel-analytics::analytics.configurations.' . $provider))
 			{
-				$providerConfig = Config::get('analytics.configurations.' . $provider);
+				$providerConfig = Config::get('laravel-analytics::analytics.configurations.' . $provider);
 			}
 
 			//	return an instance
