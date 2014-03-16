@@ -5,7 +5,7 @@
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/laravel-analytics": "dev-master"
+		"ipunkt/laravel-analytics": "~1.0"
 	}
 
 Run `php artisan config:publish ipunkt/laravel-analytics`

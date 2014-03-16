@@ -1,24 +1,24 @@
 {
-    "name": "ipunkt/laravel-analytics",
+	"name": "ipunkt/laravel-analytics",
 	"version": "1.0.0",
 	"type": "library",
-    "description": "Analytics tracking for laravel 4.x",
-    "keywords": ["analytics", "google analytics", "laravel", "statistics", "javascript", "php"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Robert Kummer",
-            "email": "rok@ipunkt.biz"
-        }
-    ],
-    "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": "~4.0"
-    },
-    "autoload": {
-        "psr-0": {
-            "Ipunkt\\LaravelAnalytics\\": "src/"
-        }
-    },
-    "minimum-stability": "stable"
+	"description": "Analytics tracking for laravel 4.x",
+	"keywords": ["analytics", "google analytics", "laravel", "statistics", "javascript", "php"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Robert Kummer",
+			"email": "rok@ipunkt.biz"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"illuminate/support": "~4.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"Ipunkt\\LaravelAnalytics\\": "src/"
+		}
+	},
+	"minimum-stability": "stable"
 }
