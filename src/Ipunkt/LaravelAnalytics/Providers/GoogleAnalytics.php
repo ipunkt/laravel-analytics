@@ -10,6 +10,8 @@ namespace Ipunkt\LaravelAnalytics\Providers;
 
 
 use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
+use Ipunkt\LaravelAnalytics\Data\Campaign;
+use Ipunkt\LaravelAnalytics\Data\Event;
 use Ipunkt\LaravelAnalytics\TrackingBag;
 use App;
 
@@ -220,5 +222,68 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	protected function _getJavascriptTemplateBlockEnd()
 	{
 		return '</script>';
+	}
+
+	/**
+	 * assembles an url for tracking measurement without javascript
+	 *
+	 * e.g. for tracking email open events within a newsletter
+	 *
+	 * @param string $metricName
+	 * @param mixed $metricValue
+	 * @param \Ipunkt\LaravelAnalytics\Data\Event $event
+	 * @param \Ipunkt\LaravelAnalytics\Data\Campaign $campaign
+	 * @param string|null $clientId
+	 * @param array $params
+	 * @return string
+	 *
+	 * @experimental
+	 */
+	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array())
+	{
+		$uniqueId = ($clientId !== null) ? $clientId : uniqid('track_');
+
+		if ($event->getLabel() === '')
+		{
+			$event->setLabel($uniqueId);
+		}
+
+		if ($campaign->getName() === '')
+		{
+			$campaign->setName('Campaign ' . date('Y-m-d'));
+		}
+
+		$defaults = [
+			'url' => 'http://www.google-analytics.com/collect?',
+			'params' => [
+				'v' => 1,	//	protocol version
+				'tid' => $this->trackingId,	//	tracking id
+				'cid' => $uniqueId,	//	client id
+				't' => $event->getHitType(),
+				'ec' => $event->getCategory(),
+				'ea' => $event->getAction(),
+				'el' => $event->getLabel(),
+				'cs' => $campaign->getSource(),
+				'cm' => $campaign->getMedium(),
+				'cn' => $campaign->getName(),
+				$metricName => $metricValue,	//	metric data
+			],
+		];
+
+		$url = isset($params['url']) ? $params['url'] : $defaults['url'];
+		$url = rtrim($url, '?') . '?';
+
+		if (isset($params['url']))
+			unset($params['url']);
+
+		$params = array_merge($defaults['params'], $params);
+		$queryParams = [];
+		foreach ($params as $key => $value)
+		{
+			if (!empty($value))
+				$queryParams[] = sprintf('%s=%s', $key, $value);
+		}
+
+		return $url . implode('&', $queryParams);
 	}
 }

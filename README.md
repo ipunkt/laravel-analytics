@@ -61,6 +61,17 @@ There is a builtin provider called `NoAnalytics`. This is for testing environmen
 not have to rewrite your code, simple select this `provider` in `analytics` configuration for your special environment
 configurations.
 
+### Track a measurement without having javacsript
+
+1. Log in to Google Analytics and create custom definition. There you create a custom metrics.
+   For example: Email opens, Integer type, min: 0 and max: 1
+   This will be available as `metric1`.
+
+2. Within your mail template (or page template) you have to create a tracking image
+
+	`<img src="{{ Analytics::trackMeasurementUrl('metric1', '1', new Event, new Campaign, md5($user)) }}" width="1" height="1" style="background-color: transparent; border: 0 none;" />`
+
+3. That's it
 
 ## API Documentation
 
@@ -145,3 +156,21 @@ Disabling the auto tracking, overriding the configuration setting `auto_track`.
 	 */
 	public function disableAutoTracking();
 
+### Analytics::trackMeasurementUrl()
+
+Sometimes you have to track measurements, e.g. opening an email newsletter. There you have no javascript at all.
+
+	/**
+	 * assembles an url for tracking measurement without javascript
+	 *
+	 * e.g. for tracking email open events within a newsletter
+	 *
+	 * @param string $metricName
+	 * @param mixed $metricValue
+	 * @param \Ipunkt\LaravelAnalytics\Data\Event $event
+	 * @param \Ipunkt\LaravelAnalytics\Data\Campaign $campaign
+	 * @param string|null $clientId
+	 * @param array $params
+	 * @return string
+	 */
+	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array());
