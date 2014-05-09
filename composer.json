@@ -1,6 +1,6 @@
 {
 	"name": "ipunkt/laravel-analytics",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"type": "library",
 	"description": "Analytics tracking for laravel 4.x",
 	"keywords": ["analytics", "google analytics", "laravel", "statistics", "javascript", "php"],

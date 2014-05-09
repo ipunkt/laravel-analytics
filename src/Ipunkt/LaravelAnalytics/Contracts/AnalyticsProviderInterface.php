@@ -9,6 +9,9 @@
 namespace Ipunkt\LaravelAnalytics\Contracts;
 
 
+use Ipunkt\LaravelAnalytics\Data\Campaign;
+use Ipunkt\LaravelAnalytics\Data\Event;
+
 interface AnalyticsProviderInterface {
 
 	/**
@@ -60,4 +63,19 @@ interface AnalyticsProviderInterface {
 	 * @return void
 	 */
 	public function disableAutoTracking();
+
+	/**
+	 * assembles an url for tracking measurement without javascript
+	 *
+	 * e.g. for tracking email open events within a newsletter
+	 *
+	 * @param string $metricName
+	 * @param mixed $metricValue
+	 * @param \Ipunkt\LaravelAnalytics\Data\Event $event
+	 * @param \Ipunkt\LaravelAnalytics\Data\Campaign $campaign
+	 * @param string|null $clientId
+	 * @param array $params
+	 * @return string
+	 */
+	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array());
 }
