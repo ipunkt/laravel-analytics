@@ -61,7 +61,7 @@ There is a builtin provider called `NoAnalytics`. This is for testing environmen
 not have to rewrite your code, simple select this `provider` in `analytics` configuration for your special environment
 configurations.
 
-### Track a measurement without having javacsript
+### Track a measurement without having javascript
 
 1. Log in to Google Analytics and create custom definition. There you create a custom metrics.
    For example: Email opens, Integer type, min: 0 and max: 1
