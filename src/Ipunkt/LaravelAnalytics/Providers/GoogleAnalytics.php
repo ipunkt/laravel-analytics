@@ -201,7 +201,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		}
 		$script[] = $this->_getJavascriptTemplateBlockEnd();
 
-		return  implode("\n", $script);
+		return  implode('', $script);
 	}
 
 	/**
