@@ -11,7 +11,7 @@
 		}
 	],
 	"support": {
-		"email": "r.kummer+laravel-analytics@example.org",
+		"email": "r.kummer+laravel-analytics@ipunkt.biz",
 	},
 	"require": {
 		"php": ">=5.4.0",
