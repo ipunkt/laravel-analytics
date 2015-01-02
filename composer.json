@@ -10,9 +10,6 @@
 			"email": "r.kummer@ipunkt.biz"
 		}
 	],
-	"support": {
-		"email": "r.kummer+laravel-analytics@ipunkt.biz",
-	},
 	"require": {
 		"php": ">=5.4.0",
 		"illuminate/support": "~4.0"
