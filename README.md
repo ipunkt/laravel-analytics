@@ -21,17 +21,18 @@ Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in 
 
 ## Configuration
 
-	provider	- Provider to use, possible Providers are: GoogleAnalytics, NoAnalytics
+<dl>
+<dt>provider</dt><dd>Provider to use, possible Providers are: <code>GoogleAnalytics</code>, <code>NoAnalytics</code></dd>
+</dl>
 
 ### Google Analytics
 
-	tracking_id	- Tracking ID
-
-	tracking_domain	- Tracking domain, unset or set to "auto" for automatic fallback
-
-	anonymize_ip - (true|false) anonymize users ip
-
-	auto_track - (true|false) auto tracking current pageview
+<dl>
+<dt>tracking_id</dt><dd>Tracking ID</dd>
+<dt>tracking_domain</dt><dd>Tracking domain, unset or set to "<code>auto</code>" for automatic fallback</dd>
+<dt>anonymize_ip</dt><dd>anonymize users ip, possible values: <code>(true|false)</code></dd>
+<dt>auto_track</dt><dd>auto tracking current pageview, possible values: <code>(true|false)</code></dd>
+</dl>
 
 ## Usage
 
@@ -81,7 +82,9 @@ For the correct usage methods look at the `Ipunkt\LaravelAnalytics\Contracts\Ana
 
 ### Analytics::render()
 
-For rendering the correct javascript code.
+Context: Blade Templates, View
+
+For rendering the correct javascript code. It is necessary to have it in all layout files to track your actions and page calls.
 
 	/**
 	 * returns the javascript code for embedding the analytics stuff
@@ -92,6 +95,8 @@ For rendering the correct javascript code.
 
 
 ### Analytics::trackPage()
+
+Context: Controller, Action code
 
 For tracking a page view.
 
@@ -107,6 +112,8 @@ For tracking a page view.
 
 
 ### Analytics::trackEvent()
+
+Context: Controller, Action code
 
 For tracking an event
 
@@ -124,6 +131,8 @@ For tracking an event
 
 ### Analytics::trackCustom()
 
+Context: Controller, Action code
+
 For tracking a custom script line within the embedded analytics code.
 
 	/**
@@ -137,6 +146,8 @@ For tracking a custom script line within the embedded analytics code.
 
 ### Analytics::enableAutoTracking()
 
+Context: Controller, Action code
+
 Enabling the auto tracking, overriding the configuration setting `auto_track`.
 
 	/**
@@ -149,6 +160,8 @@ Enabling the auto tracking, overriding the configuration setting `auto_track`.
 
 ### Analytics::disableAutoTracking()
 
+Context: Controller, Action code
+
 Disabling the auto tracking, overriding the configuration setting `auto_track`.
 
 	/**
@@ -159,6 +172,8 @@ Disabling the auto tracking, overriding the configuration setting `auto_track`.
 	public function disableAutoTracking();
 
 ### Analytics::trackMeasurementUrl()
+
+Context: Blade Template, View
 
 Sometimes you have to track measurements, e.g. opening an email newsletter. There you have no javascript at all.
 
