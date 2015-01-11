@@ -1,17 +1,10 @@
-<?php
-/**
- * mitarbeiterbereich2
- *
- * @author rok
- * @since 07.03.14
- */
+<?php namespace Ipunkt\LaravelAnalytics;
 
-namespace Ipunkt\LaravelAnalytics;
 use Ipunkt\LaravelAnalytics\Contracts\TrackingBagInterface;
 use Session;
 
-class TrackingBag implements TrackingBagInterface {
-
+class TrackingBag implements TrackingBagInterface
+{
 	/**
 	 * session identifier
 	 *
@@ -27,12 +20,13 @@ class TrackingBag implements TrackingBagInterface {
 	public function add($tracking)
 	{
 		$sessionTracks = [];
-		if (Session::has($this->sessionIdentifier))
-		{
+		if (Session::has($this->sessionIdentifier)) {
 			$sessionTracks = Session::get($this->sessionIdentifier);
 		}
 
-		$sessionTracks[] = $tracking;
+		//	prevent duplicates in session
+		$trackingKey = md5($tracking);
+		$sessionTracks[$trackingKey] = $tracking;
 
 		Session::flash($this->sessionIdentifier, $sessionTracks);
 	}
@@ -44,8 +38,7 @@ class TrackingBag implements TrackingBagInterface {
 	 */
 	public function get()
 	{
-		if (Session::has($this->sessionIdentifier))
-		{
+		if (Session::has($this->sessionIdentifier)) {
 			return Session::get($this->sessionIdentifier);
 		}
 
