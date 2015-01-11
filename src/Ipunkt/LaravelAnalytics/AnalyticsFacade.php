@@ -1,18 +1,14 @@
-<?php
-/**
- * mitarbeiterbereich2
- *
- * @author rok
- * @since 07.03.14
- */
-
-namespace Ipunkt\LaravelAnalytics;
+<?php namespace Ipunkt\LaravelAnalytics;
 
 
 use Illuminate\Support\Facades\Facade;
 
-class AnalyticsFacade extends Facade {
-
+/**
+ * Class AnalyticsFacade
+ * @package Ipunkt\LaravelAnalytics
+ */
+class AnalyticsFacade extends Facade
+{
 	/**
 	 * facade accessor
 	 *
@@ -22,5 +18,4 @@ class AnalyticsFacade extends Facade {
 	{
 		return 'analytics';
 	}
-
 }

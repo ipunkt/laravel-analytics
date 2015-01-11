@@ -1,16 +1,11 @@
-<?php
+<?php namespace Ipunkt\LaravelAnalytics\Data;
+
 /**
- * laravel-analytics
- *
- * @author rok
- * @since 09.05.14
+ * Class Event
+ * @package Ipunkt\LaravelAnalytics\Data
  */
-
-namespace Ipunkt\LaravelAnalytics\Data;
-
-
-class Event {
-
+class Event
+{
 	/**
 	 * event category
 	 *

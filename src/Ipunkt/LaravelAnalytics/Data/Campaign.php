@@ -1,16 +1,11 @@
-<?php
+<?php namespace Ipunkt\LaravelAnalytics\Data;
+
 /**
- * laravel-analytics
- *
- * @author rok
- * @since 09.05.14
+ * Class Campaign
+ * @package Ipunkt\LaravelAnalytics\Data
  */
-
-namespace Ipunkt\LaravelAnalytics\Data;
-
-
-class Campaign {
-
+class Campaign
+{
 	/**
 	 * campaign source
 	 *

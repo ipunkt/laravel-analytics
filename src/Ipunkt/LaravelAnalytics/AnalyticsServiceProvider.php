@@ -3,8 +3,8 @@
 use Config;
 use Illuminate\Support\ServiceProvider;
 
-class AnalyticsServiceProvider extends ServiceProvider {
-
+class AnalyticsServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -39,8 +39,7 @@ class AnalyticsServiceProvider extends ServiceProvider {
 
 			//	getting the config
 			$providerConfig = [];
-			if (Config::has('laravel-analytics::analytics.configurations.' . $provider))
-			{
+			if (Config::has('laravel-analytics::analytics.configurations.' . $provider)) {
 				$providerConfig = Config::get('laravel-analytics::analytics.configurations.' . $provider);
 			}
 
@@ -58,5 +57,4 @@ class AnalyticsServiceProvider extends ServiceProvider {
 	{
 		return array();
 	}
-
 }

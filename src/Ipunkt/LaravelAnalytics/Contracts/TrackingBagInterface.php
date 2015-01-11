@@ -1,20 +1,16 @@
-<?php
+<?php namespace Ipunkt\LaravelAnalytics\Contracts;
+
 /**
- * mitarbeiterbereich2
- *
- * @author rok
- * @since 07.03.14
+ * Interface TrackingBagInterface
+ * @package Ipunkt\LaravelAnalytics\Contracts
  */
-
-namespace Ipunkt\LaravelAnalytics\Contracts;
-
-
-interface TrackingBagInterface {
-
+interface TrackingBagInterface
+{
 	/**
 	 * adds a tracking
 	 *
 	 * @param string $tracking
+	 *
 	 * @return void
 	 */
 	public function add($tracking);
@@ -25,5 +21,4 @@ interface TrackingBagInterface {
 	 * @return array
 	 */
 	public function get();
-
 }

@@ -1,22 +1,18 @@
-<?php
-/**
- * mitarbeiterbereich2
- *
- * @author rok
- * @since 07.03.14
- */
+<?php namespace Ipunkt\LaravelAnalytics\Providers;
 
-namespace Ipunkt\LaravelAnalytics\Providers;
-
-
+use InvalidArgumentException;
 use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 use Ipunkt\LaravelAnalytics\Data\Campaign;
 use Ipunkt\LaravelAnalytics\Data\Event;
 use Ipunkt\LaravelAnalytics\TrackingBag;
 use App;
 
-class GoogleAnalytics implements AnalyticsProviderInterface {
-
+/**
+ * Class GoogleAnalytics
+ * @package Ipunkt\LaravelAnalytics\Providers
+ */
+class GoogleAnalytics implements AnalyticsProviderInterface
+{
 	/**
 	 * tracking id
 	 *
@@ -56,7 +52,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 * setting options via constructor
 	 *
 	 * @param array $options
-	 * @throws \InvalidArgumentException when tracking id not set
+	 *
+	 * @throws InvalidArgumentException when tracking id not set
 	 */
 	public function __construct(array $options = array())
 	{
@@ -65,9 +62,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		$this->anonymizeIp = (isset($options['anonymize_ip'])) ? $options['anonymize_ip'] : false;
 		$this->autoTrack = (isset($options['auto_track'])) ? $options['auto_track'] : false;
 
-		if ($this->trackingId === null)
-		{
-			throw new \InvalidArgumentException('Argument tracking_id can not be null');
+		if ($this->trackingId === null) {
+			throw new InvalidArgumentException('Argument tracking_id can not be null');
 		}
 
 		$this->trackingBag = new TrackingBag;
@@ -79,25 +75,23 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 * @param null|string $page
 	 * @param null|string $title
 	 * @param null|string $hittype
+	 *
 	 * @return void
 	 */
 	public function trackPage($page = null, $title = null, $hittype = null)
 	{
 		$allowedHitTypes = ['pageview', 'appview', 'event', 'transaction', 'item', 'social', 'exception', 'timing'];
-		if ($hittype === null)
-		{
+		if ($hittype === null) {
 			$hittype = $allowedHitTypes[0];
 		}
 
-		if (!in_array($hittype, $allowedHitTypes))
-		{
+		if (! in_array($hittype, $allowedHitTypes)) {
 			return;
 		}
 
 		$trackingCode = "ga('send', 'pageview');";
 
-		if ($page !== null || $title !== null || $hittype !== null)
-		{
+		if ($page !== null || $title !== null || $hittype !== null) {
 			$page = ($page === null) ? "window.location.protocol + '//' + window.location.hostname + window.location.pathname + window.location.search" : "'{$page}'";
 			$title = ($title === null) ? "document.title" : "'{$title}'";
 
@@ -106,7 +100,6 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 
 		$this->trackingBag->add($trackingCode);
 	}
-
 
 	/**
 	 * track an event
@@ -119,11 +112,9 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	public function trackEvent($category, $action, $label = null, $value = null)
 	{
 		$command = '';
-		if ($label !== null)
-		{
+		if ($label !== null) {
 			$command .= ", '{$label}'";
-			if ($value !== null && is_numeric($value))
-			{
+			if ($value !== null && is_numeric($value)) {
 				$command .= ", {$value}";
 			}
 		}
@@ -137,13 +128,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 * track any custom code
 	 *
 	 * @param string $customCode
+	 *
 	 * @return void
 	 */
 	public function trackCustom($customCode)
 	{
 		$this->trackingBag->add($customCode);
 	}
-
 
 	/**
 	 * enable auto tracking
@@ -165,7 +156,6 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 		$this->autoTrack = false;
 	}
 
-
 	/**
 	 * returns the javascript embedding code
 	 *
@@ -175,33 +165,27 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	{
 		$script[] = $this->_getJavascriptTemplateBlockBegin();
 
-		if (App::environment() === 'local')
-		{
+		if (App::environment() === 'local') {
 			$script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' });";
-		}
-		else
-		{
+		} else {
 			$script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}');";
 		}
 
-		if ($this->anonymizeIp)
-		{
+		if ($this->anonymizeIp) {
 			$script[] = "ga('set', 'anonymizeIp', true);";
 		}
 
 		$trackingStack = $this->trackingBag->get();
-		if (count($trackingStack))
-		{
+		if (count($trackingStack)) {
 			$script[] = implode("\n", $trackingStack);
 		}
 
-		if ($this->autoTrack)
-		{
+		if ($this->autoTrack) {
 			$script[] = "ga('send', 'pageview');";
 		}
 		$script[] = $this->_getJavascriptTemplateBlockEnd();
 
-		return  implode('', $script);
+		return implode('', $script);
 	}
 
 	/**
@@ -235,6 +219,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	 * @param \Ipunkt\LaravelAnalytics\Data\Campaign $campaign
 	 * @param string|null $clientId
 	 * @param array $params
+	 *
 	 * @return string
 	 *
 	 * @experimental
@@ -243,22 +228,20 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 	{
 		$uniqueId = ($clientId !== null) ? $clientId : uniqid('track_');
 
-		if ($event->getLabel() === '')
-		{
+		if ($event->getLabel() === '') {
 			$event->setLabel($uniqueId);
 		}
 
-		if ($campaign->getName() === '')
-		{
+		if ($campaign->getName() === '') {
 			$campaign->setName('Campaign ' . date('Y-m-d'));
 		}
 
 		$defaults = [
 			'url' => 'http://www.google-analytics.com/collect?',
 			'params' => [
-				'v' => 1,	//	protocol version
-				'tid' => $this->trackingId,	//	tracking id
-				'cid' => $uniqueId,	//	client id
+				'v' => 1,    //	protocol version
+				'tid' => $this->trackingId,    //	tracking id
+				'cid' => $uniqueId,    //	client id
 				't' => $event->getHitType(),
 				'ec' => $event->getCategory(),
 				'ea' => $event->getAction(),
@@ -266,7 +249,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 				'cs' => $campaign->getSource(),
 				'cm' => $campaign->getMedium(),
 				'cn' => $campaign->getName(),
-				$metricName => $metricValue,	//	metric data
+				$metricName => $metricValue,    //	metric data
 			],
 		];
 
@@ -278,9 +261,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface {
 
 		$params = array_merge($defaults['params'], $params);
 		$queryParams = [];
-		foreach ($params as $key => $value)
-		{
-			if (!empty($value))
+		foreach ($params as $key => $value) {
+			if (! empty($value))
 				$queryParams[] = sprintf('%s=%s', $key, $value);
 		}
 
