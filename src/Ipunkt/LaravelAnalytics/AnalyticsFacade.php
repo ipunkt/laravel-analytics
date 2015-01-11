@@ -1,6 +1,5 @@
 <?php namespace Ipunkt\LaravelAnalytics;
 
-
 use Illuminate\Support\Facades\Facade;
 
 /**
