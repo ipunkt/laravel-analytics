@@ -19,7 +19,19 @@ class AnalyticsServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		$this->package('ipunkt/laravel-analytics');
+		if ($this->isLaravel4()) {
+			$this->package('ipunkt/laravel-analytics');
+
+			return;
+		}
+
+		$config = realpath(__DIR__ . '/../../config/analytics.php');
+
+		$this->mergeConfigFrom($config, 'analytics');
+
+		$this->publishes([
+			$config => config_path('analytics.php'),
+		]);
 	}
 
 	/**
@@ -56,5 +68,15 @@ class AnalyticsServiceProvider extends ServiceProvider
 	public function provides()
 	{
 		return array();
+	}
+
+	/**
+	 * are we on laravel 4
+	 *
+	 * @return bool
+	 */
+	private function isLaravel4()
+	{
+		return version_compare(\Illuminate\Foundation\Application::VERSION, '5', '<');
 	}
 }
