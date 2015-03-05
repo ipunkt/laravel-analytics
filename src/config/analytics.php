@@ -1,12 +1,6 @@
 <?php
-/**
- * ipunkt/laravel-analytics
- *
- * @author rok
- * @since 07.03.14
- */
 
-return array(
+return [
 
 	/**
 	 * current selected provider
@@ -18,6 +12,13 @@ return array(
 	 */
 	'configurations' => [
 
+		/**
+		 * The Google Analytics provider supports the following properties:
+		 * - tracking_id (string)
+		 * - tracking_domain (string:auto) - default will be 'auto' if config property not exists
+		 * - anonymize_ip (bool) - default will be false if no config property exists
+		 * - auto_track (bool) - default will be false if no config property exists
+		 */
 		'GoogleAnalytics' => [
 
 			/**
@@ -46,4 +47,4 @@ return array(
 
 	],
 
-);
+];
