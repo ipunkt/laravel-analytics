@@ -7,7 +7,7 @@
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/laravel-analytics": "~1.0"
+		"ipunkt/laravel-analytics": "~1.1"
 	}
 
 ### With Laravel 5
