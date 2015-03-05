@@ -41,18 +41,20 @@ class AnalyticsServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->bind('analytics', function () {
+		$packageNamespace = $this->isLaravel4() ? 'laravel-analytics::' : '';
+
+		$this->app->bind('analytics', function () use ($packageNamespace) {
 
 			//	get analytics provider name
-			$provider = Config::get('laravel-analytics::analytics.provider');
+			$provider = Config::get($packageNamespace . 'analytics.provider');
 
 			//	make it a class
 			$providerClass = 'Ipunkt\LaravelAnalytics\Providers\\' . $provider;
 
 			//	getting the config
 			$providerConfig = [];
-			if (Config::has('laravel-analytics::analytics.configurations.' . $provider)) {
-				$providerConfig = Config::get('laravel-analytics::analytics.configurations.' . $provider);
+			if (Config::has($packageNamespace . 'analytics.configurations.' . $provider)) {
+				$providerConfig = Config::get($packageNamespace . 'analytics.configurations.' . $provider);
 			}
 
 			//	return an instance

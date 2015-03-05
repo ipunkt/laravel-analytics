@@ -12,13 +12,13 @@ Add to your composer.json following lines
 
 ### With Laravel 5
 
-Run `php artisan vendor:publish ipunkt/laravel-analytics`
-
-Then edit `analytics.php` in `app/config` to your needs.
-
 Add `'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
 
 Optional: Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
+
+Run `php artisan vendor:publish`
+
+Then edit `analytics.php` in `config` to your needs.
 
 ### With Laravel 4
 
