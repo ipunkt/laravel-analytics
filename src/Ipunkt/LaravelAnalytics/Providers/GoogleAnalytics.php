@@ -180,7 +180,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	}
 
 	/**
-	 * disable auto tracking
+	 * disable display features
 	 *
 	 * @return GoogleAnalytics
 	 */

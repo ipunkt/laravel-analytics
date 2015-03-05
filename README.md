@@ -30,8 +30,10 @@ Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in 
 <dl>
 <dt>tracking_id</dt><dd>Tracking ID</dd>
 <dt>tracking_domain</dt><dd>Tracking domain, unset or set to "<code>auto</code>" for automatic fallback</dd>
+<dt>display_features</dt><dd>enabling the display features plugin, possible values: <code>(true|false)</code></dd>
 <dt>anonymize_ip</dt><dd>anonymize users ip, possible values: <code>(true|false)</code></dd>
 <dt>auto_track</dt><dd>auto tracking current pageview, possible values: <code>(true|false)</code></dd>
+<dt>debug</dt><dd>enabling the debug mode, possible values: <code>(true|false)</code></dd>
 </dl>
 
 ## Usage
@@ -144,6 +146,33 @@ For tracking a custom script line within the embedded analytics code.
 	public function trackCustom($customCode);
 
 
+### Analytics::enableDisplayFeatures()
+
+Context: Controller, Action code
+
+Enabling the auto tracking, overriding the configuration setting `auto_track`.
+
+	/**
+	 * enable display features
+	 *
+	 * @return GoogleAnalytics
+	 */
+	public function enableAutoTracking();
+
+
+### Analytics::disableDisplayFeatures()
+
+Context: Controller, Action code
+
+Disabling the auto tracking, overriding the configuration setting `auto_track`.
+
+	/**
+	 * disable display features
+	 *
+	 * @return GoogleAnalytics
+	 */
+	public function disableAutoTracking();
+
 ### Analytics::enableAutoTracking()
 
 Context: Controller, Action code
@@ -153,7 +182,7 @@ Enabling the auto tracking, overriding the configuration setting `auto_track`.
 	/**
 	 * enable auto tracking
 	 *
-	 * @return void
+	 * @return GoogleAnalytics
 	 */
 	public function enableAutoTracking();
 
@@ -167,7 +196,7 @@ Disabling the auto tracking, overriding the configuration setting `auto_track`.
 	/**
 	 * disable auto tracking
 	 *
-	 * @return void
+	 * @return GoogleAnalytics
 	 */
 	public function disableAutoTracking();
 
