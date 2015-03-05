@@ -9,6 +9,7 @@ use App;
 
 /**
  * Class GoogleAnalytics
+ *
  * @package Ipunkt\LaravelAnalytics\Providers
  */
 class GoogleAnalytics implements AnalyticsProviderInterface
@@ -49,6 +50,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	private $trackingBag;
 
 	/**
+	 * use https for the tracking measurement url
+	 *
+	 * @var bool
+	 */
+	private $secureTrackingUrl = true;
+
+	/**
 	 * setting options via constructor
 	 *
 	 * @param array $options
@@ -57,10 +65,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	 */
 	public function __construct(array $options = array())
 	{
-		$this->trackingId = (isset($options['tracking_id'])) ? $options['tracking_id'] : null;
-		$this->trackingDomain = (isset($options['tracking_domain'])) ? $options['tracking_domain'] : 'auto';
-		$this->anonymizeIp = (isset($options['anonymize_ip'])) ? $options['anonymize_ip'] : false;
-		$this->autoTrack = (isset($options['auto_track'])) ? $options['auto_track'] : false;
+		$this->trackingId = array_get($options, 'tracking_id');
+		$this->trackingDomain = array_get($options, 'tracking_domain', 'auto');
+		$this->anonymizeIp = array_get($options, 'anonymize_ip', false);
+		$this->autoTrack = array_get($options, 'auto_track', false);
 
 		if ($this->trackingId === null) {
 			throw new InvalidArgumentException('Argument tracking_id can not be null');
@@ -85,7 +93,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 			$hittype = $allowedHitTypes[0];
 		}
 
-		if (! in_array($hittype, $allowedHitTypes)) {
+		if ( ! in_array($hittype, $allowedHitTypes)) {
 			return;
 		}
 
@@ -165,7 +173,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	{
 		$script[] = $this->_getJavascriptTemplateBlockBegin();
 
-		if (App::environment() === 'local') {
+		if (App::environment('local')) {
 			$script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' });";
 		} else {
 			$script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}');";
@@ -209,6 +217,30 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	}
 
 	/**
+	 * make the tracking measurement url unsecure
+	 *
+	 * @return $this
+	 */
+	public function unsecureMeasurementUrl()
+	{
+		$this->secureTrackingUrl = false;
+
+		return $this;
+	}
+
+	/**
+	 * use the secured version of the tracking measurement url
+	 *
+	 * @return $this
+	 */
+	public function secureMeasurementUrl()
+	{
+		$this->secureTrackingUrl = false;
+
+		return $this;
+	}
+
+	/**
 	 * assembles an url for tracking measurement without javascript
 	 *
 	 * e.g. for tracking email open events within a newsletter
@@ -236,8 +268,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 			$campaign->setName('Campaign ' . date('Y-m-d'));
 		}
 
+		$protocol = $this->secureTrackingUrl ? 'https' : 'http';
+
 		$defaults = [
-			'url' => 'http://www.google-analytics.com/collect?',
+			'url' => $protocol . '://www.google-analytics.com/collect?',
 			'params' => [
 				'v' => 1,    //	protocol version
 				'tid' => $this->trackingId,    //	tracking id
@@ -262,7 +296,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 		$params = array_merge($defaults['params'], $params);
 		$queryParams = [];
 		foreach ($params as $key => $value) {
-			if (! empty($value))
+			if ( ! empty($value))
 				$queryParams[] = sprintf('%s=%s', $key, $value);
 		}
 
