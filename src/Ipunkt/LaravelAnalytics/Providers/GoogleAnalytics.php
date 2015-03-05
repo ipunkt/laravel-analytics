@@ -29,6 +29,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	private $trackingDomain;
 
 	/**
+	 * display features plugin enabled or disabled
+	 *
+	 * @var bool
+	 */
+	private $displayFeatures = false;
+
+	/**
 	 * anonymize users ip
 	 *
 	 * @var bool
@@ -81,6 +88,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	{
 		$this->trackingId = array_get($options, 'tracking_id');
 		$this->trackingDomain = array_get($options, 'tracking_domain', 'auto');
+		$this->displayFeatures = array_get($options, 'display_features', false);
 		$this->anonymizeIp = array_get($options, 'anonymize_ip', false);
 		$this->autoTrack = array_get($options, 'auto_track', false);
 		$this->debug = array_get($options, 'debug', false);
@@ -160,23 +168,51 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	}
 
 	/**
-	 * enable auto tracking
+	 * enable display features
 	 *
-	 * @return void
+	 * @return GoogleAnalytics
 	 */
-	public function enableAutoTracking()
+	public function enableDisplayFeatures()
 	{
-		$this->autoTrack = true;
+		$this->displayFeatures = true;
+
+		return $this;
 	}
 
 	/**
 	 * disable auto tracking
 	 *
-	 * @return void
+	 * @return GoogleAnalytics
+	 */
+	public function disableDisplayFeatures()
+	{
+		$this->displayFeatures = false;
+
+		return $this;
+	}
+
+	/**
+	 * enable auto tracking
+	 *
+	 * @return GoogleAnalytics
+	 */
+	public function enableAutoTracking()
+	{
+		$this->autoTrack = true;
+
+		return $this;
+	}
+
+	/**
+	 * disable auto tracking
+	 *
+	 * @return GoogleAnalytics
 	 */
 	public function disableAutoTracking()
 	{
 		$this->autoTrack = false;
+
+		return $this;
 	}
 
 	/**
@@ -192,6 +228,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 			$script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' });";
 		} else {
 			$script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}');";
+		}
+
+		if ($this->displayFeatures) {
+			$script[] = "ga('require', 'displayfeatures');";
 		}
 
 		if ($this->anonymizeIp) {
