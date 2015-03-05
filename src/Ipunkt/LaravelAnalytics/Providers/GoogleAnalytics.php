@@ -43,6 +43,20 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	private $autoTrack = false;
 
 	/**
+	 * debug mode
+	 *
+	 * @var bool
+	 */
+	private $debug = false;
+
+	/**
+	 * for event tracking it can mark track as non-interactive so the bounce-rate calculation ignores that tracking
+	 *
+	 * @var bool
+	 */
+	private $nonInteraction = false;
+
+	/**
 	 * session tracking bag
 	 *
 	 * @var TrackingBag
@@ -69,6 +83,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 		$this->trackingDomain = array_get($options, 'tracking_domain', 'auto');
 		$this->anonymizeIp = array_get($options, 'anonymize_ip', false);
 		$this->autoTrack = array_get($options, 'auto_track', false);
+		$this->debug = array_get($options, 'debug', false);
 
 		if ($this->trackingId === null) {
 			throw new InvalidArgumentException('Argument tracking_id can not be null');
@@ -173,7 +188,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	{
 		$script[] = $this->_getJavascriptTemplateBlockBegin();
 
-		if (App::environment('local')) {
+		if ($this->debug || App::environment('local')) {
 			$script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' });";
 		} else {
 			$script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}');";
@@ -181,6 +196,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 
 		if ($this->anonymizeIp) {
 			$script[] = "ga('set', 'anonymizeIp', true);";
+		}
+
+		if ($this->nonInteraction) {
+			$script[] = "ga('set', 'nonInteraction', true);";
 		}
 
 		$trackingStack = $this->trackingBag->get();
@@ -197,13 +216,36 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	}
 
 	/**
+	 * sets or gets nonInteraction
+	 *
+	 * setting: $this->nonInteraction(true)->render();
+	 * getting: if ($this->nonInteraction()) echo 'non-interaction set';
+	 *
+	 * @param boolean|null $value
+	 *
+	 * @return bool|$this
+	 */
+	public function nonInteraction($value = null)
+	{
+		if (null === $value) {
+			return $this->nonInteraction;
+		}
+
+		$this->nonInteraction = ($value === true);
+
+		return $this;
+	}
+
+	/**
 	 * returns start block
 	 *
 	 * @return string
 	 */
 	protected function _getJavascriptTemplateBlockBegin()
 	{
-		return "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');";
+		$appendix = $this->debug ? '_debug' : '';
+
+		return "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');";
 	}
 
 	/**

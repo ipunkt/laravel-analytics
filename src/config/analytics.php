@@ -18,6 +18,7 @@ return [
 		 * - tracking_domain (string:auto) - default will be 'auto' if config property not exists
 		 * - anonymize_ip (bool) - default will be false if no config property exists
 		 * - auto_track (bool) - default will be false if no config property exists
+		 * - debug (bool) - default will be false if no config property exists
 		 */
 		'GoogleAnalytics' => [
 
@@ -43,6 +44,10 @@ return [
 			 */
 			'auto_track' => true,
 
+			/**
+			 * Enable the debugging version of the
+			 */
+			'debug' => false,
 		]
 
 	],
