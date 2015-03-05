@@ -6,6 +6,7 @@ use Ipunkt\LaravelAnalytics\Data\Event;
 
 /**
  * Class NoAnalytics
+ *
  * @package Ipunkt\LaravelAnalytics\Providers
  */
 class NoAnalytics implements AnalyticsProviderInterface
@@ -31,7 +32,6 @@ class NoAnalytics implements AnalyticsProviderInterface
 	 */
 	public function trackPage($page, $title, $hittype)
 	{
-
 	}
 
 	/**
@@ -46,7 +46,6 @@ class NoAnalytics implements AnalyticsProviderInterface
 	 */
 	public function trackEvent($category, $action, $label, $value)
 	{
-
 	}
 
 	/**
@@ -58,27 +57,46 @@ class NoAnalytics implements AnalyticsProviderInterface
 	 */
 	public function trackCustom($customCode)
 	{
+	}
 
+	/**
+	 * enable display features
+	 *
+	 * @return NoAnalytics
+	 */
+	public function enableDisplayFeatures()
+	{
+		return $this;
+	}
+
+	/**
+	 * disable display features
+	 *
+	 * @return NoAnalytics
+	 */
+	public function disableDisplayFeatures()
+	{
+		return $this;
 	}
 
 	/**
 	 * enable auto tracking
 	 *
-	 * @return void
+	 * @return NoAnalytics
 	 */
 	public function enableAutoTracking()
 	{
-
+		return $this;
 	}
 
 	/**
 	 * disable auto tracking
 	 *
-	 * @return void
+	 * @return NoAnalytics
 	 */
 	public function disableAutoTracking()
 	{
-
+		return $this;
 	}
 
 	/**
@@ -98,5 +116,23 @@ class NoAnalytics implements AnalyticsProviderInterface
 	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array())
 	{
 		return '';
+	}
+
+	/**
+	 * sets or gets nonInteraction
+	 *
+	 * setting: $this->nonInteraction(true)->render();
+	 * getting: if ($this->nonInteraction()) echo 'non-interaction set';
+	 *
+	 * @param boolean|null $value
+	 *
+	 * @return bool|AnalyticsProviderInterface
+	 */
+	public function nonInteraction($value = null)
+	{
+		if (null === $value)
+			return false;
+
+		return $this;
 	}
 }

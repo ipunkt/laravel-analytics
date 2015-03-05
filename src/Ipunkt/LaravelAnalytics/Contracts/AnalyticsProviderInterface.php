@@ -5,6 +5,7 @@ use Ipunkt\LaravelAnalytics\Data\Event;
 
 /**
  * Interface AnalyticsProviderInterface
+ *
  * @package Ipunkt\LaravelAnalytics\Contracts
  */
 interface AnalyticsProviderInterface
@@ -49,16 +50,30 @@ interface AnalyticsProviderInterface
 	public function trackCustom($customCode);
 
 	/**
+	 * enable display features
+	 *
+	 * @return AnalyticsProviderInterface
+	 */
+	public function enableDisplayFeatures();
+
+	/**
+	 * disable display features
+	 *
+	 * @return AnalyticsProviderInterface
+	 */
+	public function disableDisplayFeatures();
+
+	/**
 	 * enable auto tracking
 	 *
-	 * @return void
+	 * @return AnalyticsProviderInterface
 	 */
 	public function enableAutoTracking();
 
 	/**
 	 * disable auto tracking
 	 *
-	 * @return void
+	 * @return AnalyticsProviderInterface
 	 */
 	public function disableAutoTracking();
 
@@ -77,4 +92,16 @@ interface AnalyticsProviderInterface
 	 * @return string
 	 */
 	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array());
+
+	/**
+	 * sets or gets nonInteraction
+	 *
+	 * setting: $this->nonInteraction(true)->render();
+	 * getting: if ($this->nonInteraction()) echo 'non-interaction set';
+	 *
+	 * @param boolean|null $value
+	 *
+	 * @return bool|AnalyticsProviderInterface
+	 */
+	public function nonInteraction($value = null);
 }
