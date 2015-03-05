@@ -19,7 +19,19 @@ class AnalyticsServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		$this->package('ipunkt/laravel-analytics');
+		if ($this->isLaravel4()) {
+			$this->package('ipunkt/laravel-analytics');
+
+			return;
+		}
+
+		$config = realpath(__DIR__ . '/../../config/analytics.php');
+
+		$this->mergeConfigFrom($config, 'analytics');
+
+		$this->publishes([
+			$config => config_path('analytics.php'),
+		]);
 	}
 
 	/**
@@ -29,18 +41,20 @@ class AnalyticsServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		$this->app->bind('analytics', function () {
+		$packageNamespace = $this->isLaravel4() ? 'laravel-analytics::' : '';
+
+		$this->app->bind('analytics', function () use ($packageNamespace) {
 
 			//	get analytics provider name
-			$provider = Config::get('laravel-analytics::analytics.provider');
+			$provider = Config::get($packageNamespace . 'analytics.provider');
 
 			//	make it a class
 			$providerClass = 'Ipunkt\LaravelAnalytics\Providers\\' . $provider;
 
 			//	getting the config
 			$providerConfig = [];
-			if (Config::has('laravel-analytics::analytics.configurations.' . $provider)) {
-				$providerConfig = Config::get('laravel-analytics::analytics.configurations.' . $provider);
+			if (Config::has($packageNamespace . 'analytics.configurations.' . $provider)) {
+				$providerConfig = Config::get($packageNamespace . 'analytics.configurations.' . $provider);
 			}
 
 			//	return an instance
@@ -56,5 +70,15 @@ class AnalyticsServiceProvider extends ServiceProvider
 	public function provides()
 	{
 		return array();
+	}
+
+	/**
+	 * are we on laravel 4
+	 *
+	 * @return bool
+	 */
+	private function isLaravel4()
+	{
+		return version_compare(\Illuminate\Foundation\Application::VERSION, '5', '<');
 	}
 }

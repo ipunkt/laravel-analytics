@@ -1,4 +1,4 @@
-# Analytics tracking package for Laravel 4.x
+# Analytics tracking package for Laravel
 
 [![Latest Stable Version](https://poser.pugx.org/ipunkt/laravel-analytics/v/stable.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/laravel-analytics/v/unstable.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![License](https://poser.pugx.org/ipunkt/laravel-analytics/license.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![Total Downloads](https://poser.pugx.org/ipunkt/laravel-analytics/downloads.svg)](https://packagist.org/packages/ipunkt/laravel-analytics)
 
@@ -10,14 +10,26 @@ Add to your composer.json following lines
 		"ipunkt/laravel-analytics": "~1.0"
 	}
 
+### With Laravel 5
+
+Add `'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
+
+Optional: Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
+
+Run `php artisan vendor:publish`
+
+Then edit `analytics.php` in `config` to your needs. We do config merge in the service provider, so your local settings 
+ will stay the same.
+
+### With Laravel 4
+
 Run `php artisan config:publish ipunkt/laravel-analytics`
 
 Then edit `analytics.php` in `app/config/packages/ipunkt/laravel-analytics` to your needs.
 
 Add `'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
 
-Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
-
+Optional: Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
 
 ## Configuration
 
