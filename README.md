@@ -18,7 +18,8 @@ Optional: Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `al
 
 Run `php artisan vendor:publish`
 
-Then edit `analytics.php` in `config` to your needs.
+Then edit `analytics.php` in `config` to your needs. We do config merge in the service provider, so your local settings 
+ will stay the same.
 
 ### With Laravel 4
 
