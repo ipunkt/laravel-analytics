@@ -38,10 +38,12 @@ class TrackingBag implements TrackingBagInterface
 	 */
 	public function get()
 	{
+		$trackings = [];
 		if (Session::has($this->sessionIdentifier)) {
-			return Session::pull($this->sessionIdentifier);
+			$trackings = Session::get($this->sessionIdentifier);
+			Session::forget($this->sessionIdentifier);
 		}
 
-		return [];
+		return $trackings;
 	}
 }
