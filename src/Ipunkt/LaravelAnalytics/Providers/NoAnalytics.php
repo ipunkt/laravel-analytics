@@ -30,7 +30,7 @@ class NoAnalytics implements AnalyticsProviderInterface
 	 *
 	 * @return void
 	 */
-	public function trackPage($page, $title, $hittype)
+	public function trackPage($page = null, $title = null, $hittype = null)
 	{
 	}
 
@@ -44,7 +44,7 @@ class NoAnalytics implements AnalyticsProviderInterface
 	 *
 	 * @return void
 	 */
-	public function trackEvent($category, $action, $label, $value)
+	public function trackEvent($category, $action, $label = null, $value = null)
 	{
 	}
 
