@@ -12,11 +12,11 @@ Add to your composer.json following lines
 
 ### With Laravel 5
 
-Add `'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
+Add `Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,` to `providers` in `app/config/app.php`.
 
-Optional: Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
+Optional: Add `'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,` to `aliases` in `app/config/app.php`.
 
-Run `php artisan vendor:publish`
+Run `php artisan vendor:publish --provider="Ipunkt\LaravelAnalytics\AnalyticsServiceProvider"`
 
 Then edit `analytics.php` in `config` to your needs. We do config merge in the service provider, so your local settings 
  will stay the same.
