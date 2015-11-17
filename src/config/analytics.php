@@ -5,7 +5,7 @@ return [
 	/**
 	 * current selected provider
 	 */
-	'provider' => 'GoogleAnalytics',
+	'provider' => env('ANALYTICS_PROVIDER', 'GoogleAnalytics'),
 
 	/**
 	 * configurations for all possible providers
@@ -26,7 +26,7 @@ return [
 			/**
 			 * Tracking ID
 			 */
-			'tracking_id' => 'UA-XXXXXXXX-1',
+			'tracking_id' => env('ANALYTICS_TRACKING_ID' ,'UA-XXXXXXXX-1'),
 
 			/**
 			 * Tracking Domain
