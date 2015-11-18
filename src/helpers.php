@@ -5,6 +5,7 @@
  * taken from Illuminate/Foundation/helpers.php from laravel 5.
  */
 
+use Illuminate\Support\Str;
 
 if (! function_exists('env')) {
     /**
