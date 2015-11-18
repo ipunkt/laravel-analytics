@@ -250,6 +250,8 @@ This user tracking is implemented at [Google Analytics](https://developers.googl
 	 */
 	public function setUserId($userId);
 
+Available since 1.1.4.
+
 ### Analytics::unsetUserId()
 
 Context: Controller, Action code
@@ -262,3 +264,5 @@ Removing of an user id is also possible.
 	 * @return AnalyticsProviderInterface
 	 */
 	public function unsetUserId(); 
+
+Available since 1.1.4.
