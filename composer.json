@@ -22,7 +22,7 @@
 	"autoload": {
 		"psr-0": {
 			"Ipunkt\\LaravelAnalytics\\": "src/"
-		}
+		},
 		"files": [
 			"src/helpers.php"
 		]
