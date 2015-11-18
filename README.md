@@ -232,3 +232,33 @@ Sometimes you have to track measurements, e.g. opening an email newsletter. Ther
 	 * @return string
 	 */
 	public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = array());
+
+### Analytics::setUserId($userId)
+
+Context: Controller, Action code
+
+Adding an user id to analytics tracking. This user id is a user-dependent unique id. But be careful, you should have no
+ direct relation to the special user itself - it should be unique per user for analyzing.
+
+This user tracking is implemented at [Google Analytics](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id).
+
+	/**
+	 * sets an user id for user tracking
+	 *
+	 * @param string $userId
+	 * @return AnalyticsProviderInterface
+	 */
+	public function setUserId($userId);
+
+### Analytics::unsetUserId()
+
+Context: Controller, Action code
+
+Removing of an user id is also possible.
+
+	/**
+	 * unsets an user id
+	 *
+	 * @return AnalyticsProviderInterface
+	 */
+	public function unsetUserId(); 
