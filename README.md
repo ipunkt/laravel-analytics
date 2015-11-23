@@ -7,10 +7,8 @@
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/laravel-analytics": "~1.1"
+		"ipunkt/laravel-analytics": "~2.0"
 	}
-
-### With Laravel 5
 
 Add `Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,` to `providers` in `app/config/app.php`.
 
@@ -20,16 +18,6 @@ Run `php artisan vendor:publish --provider="Ipunkt\LaravelAnalytics\AnalyticsSer
 
 Then edit `analytics.php` in `config` to your needs. We do config merge in the service provider, so your local settings 
  will stay the same.
-
-### With Laravel 4
-
-Run `php artisan config:publish ipunkt/laravel-analytics`
-
-Then edit `analytics.php` in `app/config/packages/ipunkt/laravel-analytics` to your needs.
-
-Add `'Ipunkt\LaravelAnalytics\AnalyticsServiceProvider',` to `providers` in `app/config/app.php`.
-
-Optional: Add `'Analytics' => 'Ipunkt\LaravelAnalytics\AnalyticsFacade',` to `aliases` in `app/config/app.php`.
 
 ## Configuration
 
