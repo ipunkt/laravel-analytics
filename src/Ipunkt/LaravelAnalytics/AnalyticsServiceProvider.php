@@ -29,7 +29,7 @@ class AnalyticsServiceProvider extends ServiceProvider
 
         $config = realpath(__DIR__ . '/../../config/analytics.php');
 
-        $this->mergeConfigFrom($config, 'analytics');
+        // $this->mergeConfigFrom($config, 'analytics');
 
         $this->publishes([
             $config => config_path('analytics.php'),
