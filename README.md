@@ -51,11 +51,11 @@ In controller action (or anywhere else) use following statement to track an even
 
 In your view or layout template (e.g. a blade template) use the following statement:
 
-	{{ Analytics::render() }}
+	{!! Analytics::render() !!}
 
 For Google Analytics you should place the statement right behind the `body` tag
 
-	<body>{{ Analytics::render() }}
+	<body>{!! Analytics::render() !!}
 
 ## How to use
 
@@ -74,7 +74,7 @@ configurations.
 
 2. Within your mail template (or page template) you have to create a tracking image
 
-	`<img src="{{ Analytics::trackMeasurementUrl('metric1', '1', new Event, new Campaign, md5($user)) }}" width="1" height="1" style="background-color: transparent; border: 0 none;" />`
+	`<img src="{!! Analytics::trackMeasurementUrl('metric1', '1', new Event, new Campaign, md5($user)) !!}" width="1" height="1" style="background-color: transparent; border: 0 none;" />`
 
 3. That's it
 
