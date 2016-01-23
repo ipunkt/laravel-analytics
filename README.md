@@ -2,6 +2,40 @@
 
 [![Latest Stable Version](https://poser.pugx.org/ipunkt/laravel-analytics/v/stable.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![Latest Unstable Version](https://poser.pugx.org/ipunkt/laravel-analytics/v/unstable.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![License](https://poser.pugx.org/ipunkt/laravel-analytics/license.svg)](https://packagist.org/packages/ipunkt/laravel-analytics) [![Total Downloads](https://poser.pugx.org/ipunkt/laravel-analytics/downloads.svg)](https://packagist.org/packages/ipunkt/laravel-analytics)
 
+## Quickstart
+
+```
+composer require ipunkt/laravel-analytics
+```
+
+Add to `providers` in `config/app.php`:
+
+```
+Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
+```
+
+Add to `aliases` in `config/app.php`:
+
+```
+'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,
+```
+
+To your `.env` add these variables and set them to your liking:
+
+```
+ANALYTICS_PROVIDER=GoogleAnalytics
+ANALYTICS_TRACKING_ID=your-tracking-id
+```
+
+Finally, just above your `</head>` closing tag place, this code:
+
+```
+{!! Analytics::render() !!}
+```
+
+**You now have Google Analytics working. Enjoy!**
+
+
 ## Installation
 
 Add to your composer.json following lines
