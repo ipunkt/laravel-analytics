@@ -431,4 +431,22 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     {
         return $this->setUserId(null);
     }
+
+    /**
+     * sets custom dimension/s
+     * @param string/array $dimension
+     * @param string $value
+     * @return void
+    */
+    public function setCustom($dimension, $value=null){
+        if(!$value && is_array($dimension)){
+            $params = json_encode($dimension);
+            $trackingCode = "ga('set',$params);";
+        }
+        else{
+            $trackingCode = "ga('set', '$dimension', '$value');";
+        }
+
+        $this->trackCustom($trackingCode);
+    }
 }
