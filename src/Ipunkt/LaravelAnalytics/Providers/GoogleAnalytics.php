@@ -135,7 +135,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $page = ($page === null) ? "window.location.protocol + '//' + window.location.hostname + window.location.pathname + window.location.search" : "'{$page}'";
             $title = ($title === null) ? "document.title" : "'{$title}'";
 
-            $trackingCode = "ga('send', {'hitType': '{$hittype}', 'page': {$page}, 'title': '{$title}'});";
+            $trackingCode = "ga('send', {'hitType': '{$hittype}', 'page': {$page}, 'title': {$title}});";
         }
 
         $this->trackingBag->add($trackingCode);
