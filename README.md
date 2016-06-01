@@ -103,6 +103,19 @@ For Google Analytics you should place the statement right behind the `body` tag
 
 	<body>{!! Analytics::render() !!}
 
+### Dependency Injection (since 1.2.0)
+
+You can inject the analytics provider by referencing the interface:
+
+	class PageController extends Controller
+	{
+		public function show(\Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface $analytics)
+		{
+			$analytics->setUserId(md5(\Auth::user()->id)); // identical to Analytics::setUserId(md5(\Auth::user()->id));
+			return view('welcome');
+		}
+	}
+
 ## How to use
 
 The `GoogleAnalytics` Provider automatically controls the local environment behaviour for testing purposes.
