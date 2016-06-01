@@ -168,4 +168,25 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return $this;
     }
+
+    /**
+     * sets a campaign
+     *
+     * @param Campaign $campaign
+     * @return AnalyticsProviderInterface
+     */
+    public function setCampaign(Campaign $campaign)
+    {
+        return $this;
+    }
+
+    /**
+     * unsets a possible given campaign
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function unsetCampaign()
+    {
+        return $this;
+    }
 }

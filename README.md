@@ -83,6 +83,18 @@ In controller action (or anywhere else) use following statement to track an even
 	//	tracking a custom line
 	Analytics::trackCustom("ga('send', ......"); // this line will be added within the tracking script
 
+You can set an optional campaign for the tracking:
+
+	// creating a campaign
+	$campaign = new \Ipunkt\LaravelAnalytics\Data\Campaign('Sales2016');
+	$campaign->setMedium('web')->setSource('IT Magazine')->setKeyword('Hot stuff');
+	Analytics::setCampaign($campaign);
+
+You can set an user id for the tracking:
+
+	// creating a campaign
+	Analytics::setUserId($userIdentificationHash);
+
 In your view or layout template (e.g. a blade template) use the following statement:
 
 	{!! Analytics::render() !!}
@@ -288,3 +300,36 @@ Removing of an user id is also possible.
 	public function unsetUserId(); 
 
 Available since 1.1.4.
+
+### Analytics::setCampaign($campaign)
+
+Context: Controller, Action code
+
+Adding a campaign to the current tracking.
+
+This campaign tracking is documented for [Google Analytics](https://developers.google.com/analytics/devguides/collection/analyticsjs/field-reference#campaignName).
+
+    /**
+     * sets a campaign
+     *
+     * @param Campaign $campaign
+     * @return AnalyticsProviderInterface
+     */
+    public function setCampaign(Campaign $campaign);
+
+Available since 1.2.0.
+
+### Analytics::unsetCampaign()
+
+Context: Controller, Action code
+
+Removing of a campaign is also possible.
+
+    /**
+     * unsets a possible given campaign
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function unsetCampaign();
+
+Available since 1.2.0.

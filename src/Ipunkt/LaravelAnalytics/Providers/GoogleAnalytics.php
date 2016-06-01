@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 use Ipunkt\LaravelAnalytics\Data\Campaign;
 use Ipunkt\LaravelAnalytics\Data\Event;
+use Ipunkt\LaravelAnalytics\Data\Renderer\CampaignRenderer;
 use Ipunkt\LaravelAnalytics\TrackingBag;
 use App;
 
@@ -87,6 +88,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $userId = null;
 
     /**
+     * a campaign for tracking
+     *
+     * @var Campaign
+     */
+    private $campaign = null;
+
+    /**
      * setting options via constructor
      *
      * @param array $options
@@ -125,7 +133,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $hittype = $allowedHitTypes[0];
         }
 
-        if ( ! in_array($hittype, $allowedHitTypes)) {
+        if (!in_array($hittype, $allowedHitTypes)) {
             return;
         }
 
@@ -255,6 +263,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $script[] = "ga('set', 'nonInteraction', true);";
         }
 
+        if ($this->campaign instanceof Campaign) {
+            $script[] = (new CampaignRenderer($this->campaign))->render();
+        }
+
         $trackingStack = $this->trackingBag->get();
         if (count($trackingStack)) {
             $script[] = implode("\n", $trackingStack);
@@ -312,7 +324,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
-     * make the tracking measurement url unsecure
+     * make the tracking measurement url insecure
      *
      * @return $this
      */
@@ -358,7 +370,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         Campaign $campaign,
         $clientId = null,
         array $params = []
-    ) {
+    )
+    {
         $uniqueId = ($clientId !== null) ? $clientId : uniqid('track_');
 
         if ($event->getLabel() === '') {
@@ -398,7 +411,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $params = array_merge($defaults['params'], $params);
         $queryParams = [];
         foreach ($params as $key => $value) {
-            if ( ! empty($value)) {
+            if (!empty($value)) {
                 $queryParams[] = sprintf('%s=%s', $key, $value);
             }
         }
@@ -434,19 +447,44 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 
     /**
      * sets custom dimension/s
-     * @param string/array $dimension
+     * @param string /array $dimension
      * @param string $value
      * @return void
-    */
-    public function setCustom($dimension, $value=null){
-        if(!$value && is_array($dimension)){
+     */
+    public function setCustom($dimension, $value = null)
+    {
+        if (!$value && is_array($dimension)) {
             $params = json_encode($dimension);
             $trackingCode = "ga('set',$params);";
-        }
-        else{
+        } else {
             $trackingCode = "ga('set', '$dimension', '$value');";
         }
 
         $this->trackCustom($trackingCode);
+    }
+
+    /**
+     * sets a campaign
+     *
+     * @param Campaign $campaign
+     * @return AnalyticsProviderInterface
+     */
+    public function setCampaign(Campaign $campaign)
+    {
+        $this->campaign = $campaign;
+
+        return $this;
+    }
+
+    /**
+     * unsets a possible given campaign
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function unsetCampaign()
+    {
+        $this->campaign = null;
+
+        return $this;
     }
 }

@@ -93,7 +93,14 @@ interface AnalyticsProviderInterface
      *
      * @return string
      */
-    public function trackMeasurementUrl($metricName, $metricValue, Event $event, Campaign $campaign, $clientId = null, array $params = []);
+    public function trackMeasurementUrl(
+        $metricName,
+        $metricValue,
+        Event $event,
+        Campaign $campaign,
+        $clientId = null,
+        array $params = []
+    );
 
     /**
      * sets or gets nonInteraction
@@ -124,4 +131,19 @@ interface AnalyticsProviderInterface
      * @return AnalyticsProviderInterface
      */
     public function unsetUserId();
+
+    /**
+     * sets a campaign
+     *
+     * @param Campaign $campaign
+     * @return AnalyticsProviderInterface
+     */
+    public function setCampaign(Campaign $campaign);
+
+    /**
+     * unsets a possible given campaign
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function unsetCampaign();
 }
