@@ -118,8 +118,7 @@ You can inject the analytics provider by referencing the interface:
 
 ## How to use
 
-The `GoogleAnalytics` Provider automatically controls the local environment behaviour for testing purposes.
-See https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#localhost for details.
+The `GoogleAnalytics` Provider automatically controls the [local environment](https://developers.google.com/analytics/devguides/collection/analyticsjs/advanced#localhost) behaviour for testing purposes.
 
 There is a builtin provider called `NoAnalytics`. This is for testing environments and tracks nothing. So you do
 not have to rewrite your code, simple select this `provider` in `analytics` configuration for your special environment
