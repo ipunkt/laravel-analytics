@@ -41,7 +41,7 @@ Finally, just above your `</head>` closing tag place, this code:
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/laravel-analytics": "~2.0"
+		"ipunkt/laravel-analytics": "~1.0"
 	}
 
 Add `Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,` to `providers` in `app/config/app.php`.
