@@ -45,7 +45,7 @@ class AnalyticsServiceProvider extends ServiceProvider
     {
         $packageNamespace = $this->isLaravel4() ? 'laravel-analytics::' : '';
 
-        $this->app->bind('analytics', function () use ($packageNamespace) {
+        $this->app->singleton('Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface', function () use ($packageNamespace) {
 
             //	get analytics provider name
             $provider = Config::get($packageNamespace . 'analytics.provider');
