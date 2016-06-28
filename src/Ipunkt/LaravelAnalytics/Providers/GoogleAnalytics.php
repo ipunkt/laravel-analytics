@@ -252,7 +252,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
-     * do not render any script blocks
+     * do not render script block
      *
      * @return $this
      */

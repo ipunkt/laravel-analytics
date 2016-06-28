@@ -102,6 +102,26 @@ class NoAnalytics implements AnalyticsProviderInterface
     }
 
     /**
+     * render script block
+     *
+     * @return $this
+     */
+    public function enableScriptBlock()
+    {
+        return $this;
+    }
+
+    /**
+     * do not render script block
+     *
+     * @return $this
+     */
+    public function disableScriptBlock()
+    {
+        return $this;
+    }
+
+    /**
      * assembles an url for tracking measurement without javascript
      *
      * e.g. for tracking email open events within a newsletter

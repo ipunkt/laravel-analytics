@@ -80,6 +80,20 @@ interface AnalyticsProviderInterface
     public function disableAutoTracking();
 
     /**
+     * render script block
+     *
+     * @return $this
+     */
+    public function enableScriptBlock();
+
+    /**
+     * do not render script block
+     *
+     * @return $this
+     */
+    public function disableScriptBlock();
+
+    /**
      * assembles an url for tracking measurement without javascript
      *
      * e.g. for tracking email open events within a newsletter
