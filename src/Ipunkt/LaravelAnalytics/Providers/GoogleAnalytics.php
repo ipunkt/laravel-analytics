@@ -2,13 +2,13 @@
 
 namespace Ipunkt\LaravelAnalytics\Providers;
 
+use App;
 use InvalidArgumentException;
 use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 use Ipunkt\LaravelAnalytics\Data\Campaign;
 use Ipunkt\LaravelAnalytics\Data\Event;
 use Ipunkt\LaravelAnalytics\Data\Renderer\CampaignRenderer;
 use Ipunkt\LaravelAnalytics\TrackingBag;
-use App;
 
 /**
  * Class GoogleAnalytics
@@ -93,6 +93,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      * @var Campaign
      */
     private $campaign = null;
+
+    /**
+     * should the script block be rendered?
+     *
+     * @var bool
+     */
+    private $renderScriptBlock = true;
 
     /**
      * setting options via constructor
@@ -233,6 +240,30 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
+     * render script block
+     *
+     * @return $this
+     */
+    public function enableScriptBlock()
+    {
+        $this->renderScriptBlock = true;
+
+        return $this;
+    }
+
+    /**
+     * do not render any script blocks
+     *
+     * @return $this
+     */
+    public function disableScriptBlock()
+    {
+        $this->renderScriptBlock = false;
+
+        return $this;
+    }
+
+    /**
      * returns the javascript embedding code
      *
      * @return string
@@ -299,28 +330,6 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $this->nonInteraction = ($value === true);
 
         return $this;
-    }
-
-    /**
-     * returns start block
-     *
-     * @return string
-     */
-    protected function _getJavascriptTemplateBlockBegin()
-    {
-        $appendix = $this->debug ? '_debug' : '';
-
-        return "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');";
-    }
-
-    /**
-     * returns end block
-     *
-     * @return string
-     */
-    protected function _getJavascriptTemplateBlockEnd()
-    {
-        return '</script>';
     }
 
     /**
@@ -486,5 +495,31 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $this->campaign = null;
 
         return $this;
+    }
+
+    /**
+     * returns start block
+     *
+     * @return string
+     */
+    protected function _getJavascriptTemplateBlockBegin()
+    {
+        $appendix = $this->debug ? '_debug' : '';
+
+        return ($this->renderScriptBlock)
+            ? "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
+            : '';
+    }
+
+    /**
+     * returns end block
+     *
+     * @return string
+     */
+    protected function _getJavascriptTemplateBlockEnd()
+    {
+        return ($this->renderScriptBlock)
+            ? '</script>'
+            : '';
     }
 }
