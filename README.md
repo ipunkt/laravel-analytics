@@ -345,3 +345,33 @@ Removing of a campaign is also possible.
     public function unsetCampaign();
 
 Available since 1.2.0.
+
+### Analytics::enableScriptBlock()
+
+Context: Controller, Action code
+
+Enabling the rendering of the `<script>...</script>` block tags. Is enabled by default, so you do not have to call this.
+
+	/**
+	 * render script block
+	 *
+	 * @return GoogleAnalytics
+	 */
+	public function enableScriptBlock();
+
+Available since 1.2.1.
+
+### Analytics::disableScriptBlock()
+
+Context: Controller, Action code
+
+Disabling the rendering of the `<script>...</script>` block tags.
+
+	/**
+	 * do not render script block
+	 *
+	 * @return GoogleAnalytics
+	 */
+	public function disableScriptBlock();
+
+Available since 1.2.1.
