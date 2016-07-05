@@ -195,7 +195,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      * @param  null|float $shipping
      * @param  null|float $tax
      *
-     * @return void
+     * @return AnalyticsProviderInterface
      */
     public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null)
     {
@@ -224,6 +224,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $trackingCode = "ga('ecommerce:addTransaction', {$jsonParameters});";
 
         $this->trackingBag->add($trackingCode);
+        
+        return $this;
     }
 
     /**
@@ -236,7 +238,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      * @param  null|float $price
      * @param  null|int $quantity
      *
-     * @return void
+     * @return AnalyticsProviderInterface
      */
     public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null)
     {
@@ -268,6 +270,8 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $trackingCode = "ga('ecommerce:addItem', {$jsonParameters});";
 
         $this->trackingBag->add($trackingCode);
+        
+        return $this;
     }
 
     /**
@@ -314,6 +318,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     public function enableEcommerceTracking()
     {
         $this->ecommerceTracking = true;
+
         return $this;
     }
 
@@ -325,6 +330,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     public function disableEcommerceTracking()
     {
         $this->ecommerceTracking = false;
+
         return $this;
     }
 
