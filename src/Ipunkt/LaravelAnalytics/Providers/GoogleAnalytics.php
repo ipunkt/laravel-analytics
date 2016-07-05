@@ -39,6 +39,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $displayFeatures = false;
 
     /**
+     * ecommerce tracking plugin enabled or disabled
+     *
+     * @var bool
+     */
+    private $ecommerceTracking = false;
+
+    /**
      * anonymize users ip
      *
      * @var bool
@@ -180,6 +187,90 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
+     * ecommerce tracking - add transaction
+     *
+     * @param  string $id
+     * @param  null|string $affiliation
+     * @param  null|float $revenue
+     * @param  null|float $shipping
+     * @param  null|float $tax
+     *
+     * @return void
+     */
+    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null)
+    {
+        // Call to enable ecommerce tracking automatically
+        $this->enableEcommerceTracking();
+
+        $parameters = ['id' => $id];
+
+        if (!is_null($affiliation)) {
+            $parameters['affiliation'] = $affiliation;
+        }
+
+        if (!is_null($revenue)) {
+            $parameters['revenue'] = $revenue;
+        }
+
+        if (!is_null($shipping)) {
+            $parameters['shipping'] = $shipping;
+        }
+
+        if (!is_null($tax)) {
+            $parameters['tax'] = $tax;
+        }
+
+        $jsonParameters = json_encode($parameters);
+        $trackingCode = "ga('ecommerce:addTransaction', {$jsonParameters});";
+
+        $this->trackingBag->add($trackingCode);
+    }
+
+    /**
+     * ecommerce tracking - add item
+     *
+     * @param  string $id
+     * @param  string $name
+     * @param  null|string $sku
+     * @param  null|string $category
+     * @param  null|float $price
+     * @param  null|int $quantity
+     *
+     * @return void
+     */
+    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null)
+    {
+        // Call to enable ecommerce tracking automatically
+        $this->enableEcommerceTracking();
+
+        $parameters = [
+            'id'    => $id,
+            'name'  => $name,
+        ];
+
+        if (!is_null($sku)) {
+            $parameters['sku'] = $sku;
+        }
+
+        if (!is_null($category)) {
+            $parameters['category'] = $category;
+        }
+
+        if (!is_null($price)) {
+            $parameters['price'] = $price;
+        }
+
+        if (!is_null($quantity)) {
+            $parameters['quantity'] = $quantity;
+        }
+
+        $jsonParameters = json_encode($parameters);
+        $trackingCode = "ga('ecommerce:addItem', {$jsonParameters});";
+
+        $this->trackingBag->add($trackingCode);
+    }
+
+    /**
      * track any custom code
      *
      * @param string $customCode
@@ -212,6 +303,28 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     {
         $this->displayFeatures = false;
 
+        return $this;
+    }
+
+    /**
+     * enable ecommerce tracking
+     *
+     * @return GoogleAnalytics
+     */
+    public function enableEcommerceTracking()
+    {
+        $this->ecommerceTracking = true;
+        return $this;
+    }
+
+    /**
+     * disable ecommerce tracking
+     *
+     * @return GoogleAnalytics
+     */
+    public function disableEcommerceTracking()
+    {
+        $this->ecommerceTracking = false;
         return $this;
     }
 
@@ -282,6 +395,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}'{$trackingUserId});";
         }
 
+        if ($this->ecommerceTracking) {
+            $script[] = "ga('require', 'ecommerce');";
+        }
+
         if ($this->displayFeatures) {
             $script[] = "ga('require', 'displayfeatures');";
         }
@@ -306,6 +423,11 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         if ($this->autoTrack) {
             $script[] = "ga('send', 'pageview');";
         }
+
+        if ($this->ecommerceTracking) {
+            $script[] = "ga('ecommerce:send');";
+        }
+
         $script[] = $this->_getJavascriptTemplateBlockEnd();
 
         return implode('', $script);
