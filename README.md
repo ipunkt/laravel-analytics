@@ -375,3 +375,77 @@ Disabling the rendering of the `<script>...</script>` block tags.
 	public function disableScriptBlock();
 
 Available since 1.2.1.
+
+### Analytics::enableEcommerceTracking()
+
+Context: Controller, Action code
+
+Enabling ecommerce tracking.
+
+    /**
+     * enable ecommerce tracking
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function enableEcommerceTracking();
+
+Available since 1.2.2.
+
+### Analytics::disableEcommerceTracking()
+
+Context: Controller, Action code
+
+Disabling ecommerce tracking.
+
+    /**
+     * disable ecommerce tracking
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function disableEcommerceTracking();
+
+Available since 1.2.2.
+
+### Analytics::ecommerceAddTransaction()
+
+Context: Controller, Action code
+
+Add ecommerce transaction to tracking code.
+
+    /**
+     * ecommerce tracking - add transaction
+     *
+     * @param  string $id
+     * @param  null|string $affiliation
+     * @param  null|float $revenue
+     * @param  null|float $shipping
+     * @param  null|float $tax
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null);
+
+Available since 1.2.2.
+
+### Analytics::ecommerceAddItem()
+
+Context: Controller, Action code
+
+Add ecommerce item to tracking code.
+
+    /**
+     * ecommerce tracking - add item
+     *
+     * @param  string $id
+     * @param  string $name
+     * @param  null|string $sku
+     * @param  null|string $category
+     * @param  null|float $price
+     * @param  null|int $quantity
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null);
+
+Available since 1.2.2.
+
