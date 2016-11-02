@@ -109,6 +109,16 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $renderScriptBlock = true;
 
     /**
+     * @var string
+     */
+    private $rendered;
+
+    /**
+     * @var int
+     */
+    private static $cspNonce;
+
+    /**
      * setting options via constructor
      *
      * @param array $options
@@ -389,6 +399,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      */
     public function render()
     {
+        if ($this->rendered) {
+            return $this->rendered;
+        }
+
         $script[] = $this->_getJavascriptTemplateBlockBegin();
 
         $trackingUserId = (null === $this->userId)
@@ -436,7 +450,9 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 
         $script[] = $this->_getJavascriptTemplateBlockEnd();
 
-        return implode('', $script);
+        $this->rendered = implode('', $script);
+
+        return $this->rendered;
     }
 
     /**
@@ -629,6 +645,33 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
+     * Get a hash of the output script for use in a Content Security Policy
+     * header.
+     *
+     * @return string
+     */
+    public function cspHash()
+    {
+        $hash = base64_encode(
+            hash('sha256', strip_tags($this->render()), true)
+        );
+
+        return "'sha256-{$hash}'";
+    }
+
+    /**
+     * @return int
+     */
+    public function cspNonce()
+    {
+        if (static::$cspNonce === null) {
+            static::$cspNonce = random_int(0, PHP_INT_MAX);
+        }
+
+        return static::$cspNonce;
+    }
+
+    /**
      * returns start block
      *
      * @return string
@@ -638,7 +681,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $appendix = $this->debug ? '_debug' : '';
 
         return ($this->renderScriptBlock)
-            ? "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
+            ? "<script nonce='{$this->cspNonce()}'>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
             : '';
     }
 

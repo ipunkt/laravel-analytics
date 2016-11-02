@@ -449,3 +449,16 @@ Add ecommerce item to tracking code.
 
 Available since 1.2.2.
 
+### Analytics::cspHash()
+
+Context: view, Controller
+
+Get an SHA-256 hash of the output script for use in a Content Security
+Policy header.
+
+### Analytics::cspNonce()
+
+Context: view, Controller
+
+Get a nonce for use in a Content Security Policy. The nonce is included
+in the output script tag.
