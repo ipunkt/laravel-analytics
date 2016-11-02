@@ -190,13 +190,15 @@ class NoAnalytics implements AnalyticsProviderInterface
     }
 
     /**
-     * sets custom dimension/s
-     * @param string /array $dimension
+     * sets custom dimensions
+     *
+     * @param string $dimension
      * @param string $value
-     * @return void
+     * @return AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null)
     {
+        return $this;
     }
 
     /**
