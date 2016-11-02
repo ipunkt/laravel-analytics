@@ -583,21 +583,24 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
-     * sets custom dimension/s
-     * @param string /array $dimension
+     * sets custom dimensions
+     *
+     * @param string|array $dimension
      * @param string $value
-     * @return void
+     * @return AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null)
     {
-        if (!$value && is_array($dimension)) {
+        if ($value === null && is_array($dimension)) {
             $params = json_encode($dimension);
-            $trackingCode = "ga('set',$params);";
+            $trackingCode = "ga('set', $params);";
         } else {
             $trackingCode = "ga('set', '$dimension', '$value');";
         }
 
         $this->trackCustom($trackingCode);
+        
+        return $this;
     }
 
     /**
