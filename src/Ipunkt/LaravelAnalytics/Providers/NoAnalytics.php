@@ -192,7 +192,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     /**
      * sets custom dimensions
      *
-     * @param string $dimension
+     * @param string|array $dimension
      * @param string $value
      * @return AnalyticsProviderInterface
      */
