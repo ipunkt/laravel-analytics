@@ -190,6 +190,16 @@ class NoAnalytics implements AnalyticsProviderInterface
     }
 
     /**
+     * sets custom dimension/s
+     * @param string /array $dimension
+     * @param string $value
+     * @return void
+     */
+    public function setCustom($dimension, $value = null)
+    {
+    }
+
+    /**
      * sets a campaign
      *
      * @param Campaign $campaign
