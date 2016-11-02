@@ -201,4 +201,13 @@ interface AnalyticsProviderInterface
      * @return AnalyticsProviderInterface
      */
     public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null);
+    
+    /**
+     * sets custom dimension/s
+     *
+     * @param string $dimension
+     * @param string $value
+     * @return void
+     */
+    public function setCustom($dimension, $value = null);
 }
