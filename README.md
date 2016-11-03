@@ -152,7 +152,7 @@ $policy = new ContentSecurityPolicyHeaderBuilder();
 $policy->addSourceExpression(ContentSecurityPolicyHeaderBuilder::DIRECTIVE_DEFAULT_SRC, 'none');
 
 // Add the nonce to the script-src directive
-$policy->addNonce(ContentSecurityPolicyHeaderBuilder::DIRECTIVE_SCRIPT_SRC, $analytics->withNonce()->cspNonce());
+$policy->addNonce(ContentSecurityPolicyHeaderBuilder::DIRECTIVE_SCRIPT_SRC, $analytics->withCSP()->cspNonce());
 
 foreach ($policy->getHeaders(true) as $header) {
     header(sprintf('%s: %s', $header['name'], $header['value']));
