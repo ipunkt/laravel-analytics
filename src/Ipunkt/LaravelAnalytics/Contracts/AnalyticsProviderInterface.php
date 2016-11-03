@@ -160,21 +160,21 @@ interface AnalyticsProviderInterface
      * @return AnalyticsProviderInterface
      */
     public function unsetCampaign();
-    
+
     /**
      * enable ecommerce tracking
      *
      * @return AnalyticsProviderInterface
      */
     public function enableEcommerceTracking();
-    
+
     /**
      * disable ecommerce tracking
      *
      * @return AnalyticsProviderInterface
      */
     public function disableEcommerceTracking();
-    
+
     /**
      * ecommerce tracking - add transaction
      *
@@ -187,7 +187,7 @@ interface AnalyticsProviderInterface
      * @return AnalyticsProviderInterface
      */
     public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null);
-    
+
     /**
      * ecommerce tracking - add item
      *
@@ -201,13 +201,34 @@ interface AnalyticsProviderInterface
      * @return AnalyticsProviderInterface
      */
     public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null);
-    
+
     /**
      * sets custom dimensions
      *
      * @param string|array $dimension
-     * @param string $value
-     * @return void
+     * @param null|string $value
+     * @return AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null);
+
+    /**
+     * enables Content Security Polity and sets nonce
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withCSP();
+
+    /**
+     * disables Content Security Polity
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withoutCSP();
+
+    /**
+     * returns the current Content Security Policy nonce
+     *
+     * @return string|null
+     */
+    public function cspNonce();
 }

@@ -24,5 +24,12 @@
 			"Ipunkt\\LaravelAnalytics\\": "src/"
 		}
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+	"suggest": {
+		"martijnc/php-csp": "For handling Content Security Policy matters"
+	},
+	"support": {
+		"issues": "https://github.com/ipunkt/laravel-analytics/issues",
+		"source": "https://github.com/ipunkt/laravel-analytics/archive/master.zip"
+	}
 }

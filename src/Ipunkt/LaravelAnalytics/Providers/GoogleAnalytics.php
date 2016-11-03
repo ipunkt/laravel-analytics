@@ -109,6 +109,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $renderScriptBlock = true;
 
     /**
+     * Content Security Nonce
+     *
+     * @var null
+     */
+    private $cspNonce = null;
+
+    /**
      * setting options via constructor
      *
      * @param array $options
@@ -224,7 +231,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $trackingCode = "ga('ecommerce:addTransaction', {$jsonParameters});";
 
         $this->trackingBag->add($trackingCode);
-        
+
         return $this;
     }
 
@@ -270,7 +277,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $trackingCode = "ga('ecommerce:addItem', {$jsonParameters});";
 
         $this->trackingBag->add($trackingCode);
-        
+
         return $this;
     }
 
@@ -586,7 +593,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      * sets custom dimensions
      *
      * @param string|array $dimension
-     * @param string $value
+     * @param null|string $value
      * @return AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null)
@@ -599,7 +606,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         }
 
         $this->trackCustom($trackingCode);
-        
+
         return $this;
     }
 
@@ -637,8 +644,12 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     {
         $appendix = $this->debug ? '_debug' : '';
 
+        $scriptTag = ($this->cspNonce === null)
+            ? '<script>'
+            : '<script nonce="' . $this->cspNonce . '">';
+
         return ($this->renderScriptBlock)
-            ? "<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
+            ? $scriptTag . "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
             : '';
     }
 
@@ -652,5 +663,41 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         return ($this->renderScriptBlock)
             ? '</script>'
             : '';
+    }
+
+    /**
+     * enables Content Security Polity and sets nonce
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withCSP()
+    {
+        if ($this->cspNonce === null) {
+            $this->cspNonce = 'nonce-' . random_int(0, PHP_INT_MAX);
+        }
+
+        return $this;
+    }
+
+    /**
+     * disables Content Security Polity
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withoutCSP()
+    {
+        $this->cspNonce = null;
+
+        return $this;
+    }
+
+    /**
+     * returns the current Content Security Policy nonce
+     *
+     * @return string|null
+     */
+    public function cspNonce()
+    {
+        return $this->cspNonce;
     }
 }

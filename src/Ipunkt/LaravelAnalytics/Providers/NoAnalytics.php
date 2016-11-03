@@ -193,7 +193,7 @@ class NoAnalytics implements AnalyticsProviderInterface
      * sets custom dimensions
      *
      * @param string|array $dimension
-     * @param string $value
+     * @param null|string $value
      * @return AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null)
@@ -221,7 +221,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return $this;
     }
-    
+
     /**
      * enable ecommerce tracking
      *
@@ -231,7 +231,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return $this;
     }
-    
+
     /**
      * disable ecommerce tracking
      *
@@ -241,7 +241,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return $this;
     }
-    
+
     /**
      * ecommerce tracking - add transaction
      *
@@ -257,7 +257,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return $this;
     }
-    
+
     /**
      * ecommerce tracking - add item
      *
@@ -273,5 +273,35 @@ class NoAnalytics implements AnalyticsProviderInterface
     public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null)
     {
         return $this;
+    }
+
+    /**
+     * enables Content Security Polity and sets nonce
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withCSP()
+    {
+        return $this;
+    }
+
+    /**
+     * disables Content Security Polity
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withoutCSP()
+    {
+        return $this;
+    }
+
+    /**
+     * returns the current Content Security Policy nonce
+     *
+     * @return string|null
+     */
+    public function cspNonce()
+    {
+        return null;
     }
 }

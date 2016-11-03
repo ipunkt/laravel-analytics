@@ -136,6 +136,40 @@ configurations.
 
 3. That's it
 
+## Content Security Policy
+
+Since version 1.3 is a support for Content Security Policy integrated.
+
+Please call the `withCSP()` on the provider interface instance.
+
+Then use an additional package (or implement on your own) `martijnc/php-csp` and use the following code in your middleware or your javascript sending controller:
+```php
+use Phpcsp\Security\ContentSecurityPolicyHeaderBuilder;
+
+$policy = new ContentSecurityPolicyHeaderBuilder();
+
+// Set the default-src directive to 'none'
+$policy->addSourceExpression(ContentSecurityPolicyHeaderBuilder::DIRECTIVE_DEFAULT_SRC, 'none');
+
+// Add the nonce to the script-src directive
+$policy->addNonce(ContentSecurityPolicyHeaderBuilder::DIRECTIVE_SCRIPT_SRC, $analytics->withNonce()->cspNonce());
+
+foreach ($policy->getHeaders(true) as $header) {
+    header(sprintf('%s: %s', $header['name'], $header['value']));
+}
+```
+
+The result looks like this:
+```php
+array (size=1)
+  0 => 
+    array (size=2)
+      'name' => string 'Content-Security-Policy' (length=23)
+      'value' => string 'default-src 'none'; script-src 'nonce-RandomNonceStringFromAnalyticsProvider';' (length=58)
+```
+
+On rendering your analytics script the `nonce` attribute will be automatically added on your script tag.
+
 ## API Documentation
 
 For the correct usage methods look at the `Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface.php`
@@ -449,3 +483,64 @@ Add ecommerce item to tracking code.
 
 Available since 1.2.2.
 
+### Analytics::setCustom()
+
+Context: Controller, Action code
+
+Adds custom settings.
+
+    /**
+     * sets custom dimensions
+     *
+     * @param string|array $dimension
+     * @param null|string $value
+     * @return AnalyticsProviderInterface
+     */
+    public function setCustom($dimension, $value = null)
+
+Available since 1.2.2.
+
+### Analytics::withCSP()
+
+Context: Controller, Action code
+
+Enabling the Content Security Policy feature.
+
+    /**
+     * enables Content Security Polity and sets nonce
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withCSP();
+
+Available since 1.3.0.
+
+### Analytics::withoutCSP()
+
+Context: Controller, Action code
+
+Disabling the Content Security Policy feature.
+
+    /**
+     * disables Content Security Polity
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function withoutCSP();
+
+Available since 1.3.0.
+
+### Analytics::cspNonce()
+
+Context: Controller, Action code
+
+Returns the nonce generated for the Content Security Policy Header.
+
+    /**
+     * returns the current Content Security Policy nonce
+     *
+     * @return string|null
+     */
+    public function cspNonce();
+
+Available since 1.3.0.
