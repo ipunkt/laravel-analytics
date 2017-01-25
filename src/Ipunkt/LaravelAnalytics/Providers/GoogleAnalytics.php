@@ -32,6 +32,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $trackingDomain;
 
     /**
+     * tracker name
+     *
+     * @var string
+     */
+    private $trackerName;
+
+    /**
      * display features plugin enabled or disabled
      *
      * @var bool
@@ -126,6 +133,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     {
         $this->trackingId = array_get($options, 'tracking_id');
         $this->trackingDomain = array_get($options, 'tracking_domain', 'auto');
+        $this->trackerName = array_get($options, 'tracker_name', 't0');
         $this->displayFeatures = array_get($options, 'display_features', false);
         $this->anonymizeIp = array_get($options, 'anonymize_ip', false);
         $this->autoTrack = array_get($options, 'auto_track', false);
@@ -403,9 +411,9 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             : sprintf(", {'userId': '%s'}", $this->userId);
 
         if ($this->debug || App::environment('local')) {
-            $script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' }{$trackingUserId});";
+            $script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' }, '{$this->trackerName}'{$trackingUserId});";
         } else {
-            $script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}'{$trackingUserId});";
+            $script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}', '{$this->trackerName}'{$trackingUserId});";
         }
 
         if ($this->ecommerceTracking) {
