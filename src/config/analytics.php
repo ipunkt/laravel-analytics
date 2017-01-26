@@ -16,6 +16,7 @@ return [
 		 * The Google Analytics provider supports the following properties:
 		 * - tracking_id (string)
 		 * - tracking_domain (string:auto) - default will be 'auto' if config property not exists
+		 * - tracker_name (string:t0) - default will be 't0' if config property not exists
 		 * - display_features (bool) - default will be false if no config property exists
 		 * - anonymize_ip (bool) - default will be false if no config property exists
 		 * - auto_track (bool) - default will be false if no config property exists
