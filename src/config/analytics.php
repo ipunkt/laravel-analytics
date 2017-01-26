@@ -34,6 +34,11 @@ return [
 			'tracking_domain' => 'auto',
 
 			/**
+			 * Tracker Name
+			 */
+			'tracker_name' => 't0',
+
+			/**
 			 * enabling the display feature plugin
 			 */
 			'display_features' => false,

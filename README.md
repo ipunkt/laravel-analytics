@@ -64,6 +64,7 @@ Then edit `analytics.php` in `config` to your needs. We do config merge in the s
 <dl>
 <dt>tracking_id</dt><dd>Tracking ID</dd>
 <dt>tracking_domain</dt><dd>Tracking domain, unset or set to "<code>auto</code>" for automatic fallback</dd>
+<dt>tracker_name</dt><dd>Tracker name</dd>
 <dt>display_features</dt><dd>enabling the display features plugin, possible values: <code>(true|false)</code></dd>
 <dt>anonymize_ip</dt><dd>anonymize users ip, possible values: <code>(true|false)</code></dd>
 <dt>auto_track</dt><dd>auto tracking current pageview, possible values: <code>(true|false)</code></dd>
