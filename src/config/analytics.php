@@ -27,39 +27,39 @@ return [
 			/**
 			 * Tracking ID
 			 */
-			'tracking_id' => env('ANALYTICS_TRACKING_ID' ,'UA-XXXXXXXX-1'),
+			'tracking_id' => env('ANALYTICS_TRACKING_ID'),
 
 			/**
 			 * Tracking Domain
 			 */
-			'tracking_domain' => 'auto',
+			'tracking_domain' => env('ANALYTICS_TRACKING_DOMAIN', 'auto'),
 
 			/**
 			 * Tracker Name
 			 */
-			'tracker_name' => 't0',
+			'tracker_name' => env('ANALYTICS_TRACKER_NAME', 't0'),
 
 			/**
 			 * enabling the display feature plugin
 			 */
-			'display_features' => false,
+			'display_features' => env('ANALYTICS_DISPLAY_FEATURES', false),
 
 			/**
 			 * Use ip anonymized
 			 */
-			'anonymize_ip' => true,
+			'anonymize_ip' => env('ANALYTICS_ANONYMIZE_IP', true),
 
 			/**
 			 * Auto tracking pageview: ga('send', 'pageview');
 			 * If false, you have to do it manually for each request
 			 * Or you can use Analytics::disableAutoTracking(), Analytics::enableAutoTracking()
 			 */
-			'auto_track' => true,
+			'auto_track' => env('ANALYTICS_AUTO_TRACK', true),
 
 			/**
-			 * Enable the debugging version of the
+			 * Enable the debugging version of Google Analytics
 			 */
-			'debug' => false,
+			'debug' => env('ANALYTIS_DEBUG', env('APP_ENV') !== 'local'),
 		]
 
 	],
