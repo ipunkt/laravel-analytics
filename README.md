@@ -26,6 +26,7 @@ To your `.env` add these variables and set them to your liking:
 ANALYTICS_PROVIDER=GoogleAnalytics
 ANALYTICS_TRACKING_ID=your-tracking-id
 ```
+We support the whole configuration as  environment variables. Please see Configuration section.
 
 Finally, just above your `</head>` closing tag place, this code:
 
