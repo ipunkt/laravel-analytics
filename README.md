@@ -62,7 +62,7 @@ Then edit `analytics.php` in `config` to your needs. We do config merge in the s
 ### Google Analytics
 
 <dl>
-<dt>tracking_id</dt><dd>Tracking ID</dd>
+<dt>tracking_id</dt><dd>Tracking ID, Your tracking id for Google Analytics</dd>
 <dt>tracking_domain</dt><dd>Tracking domain, unset or set to "<code>auto</code>" for automatic fallback</dd>
 <dt>tracker_name</dt><dd>Tracker name</dd>
 <dt>display_features</dt><dd>enabling the display features plugin, possible values: <code>(true|false)</code></dd>
@@ -70,6 +70,23 @@ Then edit `analytics.php` in `config` to your needs. We do config merge in the s
 <dt>auto_track</dt><dd>auto tracking current pageview, possible values: <code>(true|false)</code></dd>
 <dt>debug</dt><dd>enabling the debug mode, possible values: <code>(true|false)</code></dd>
 </dl>
+
+### Environment-based Configuration
+
+You can configure the whole settings by changing/setting environment variables in your .env file. (Or .env.dusk file if you use Laravel Dusk).
+
+Here is the mapping of configuration value and the environment-based names:
+<dl>
+<dt>tracking_id</dt><dd>ANALYTICS_TRACKING_ID</dd>
+<dt>tracking_domain</dt><dd>ANALYTICS_TRACKING_DOMAIN (auto)</dd>
+<dt>tracker_name</dt><dd>ANALYTICS_TRACKER_NAME (t0)</dd>
+<dt>display_features</dt><dd>ANALYTICS_DISPLAY_FEATURES (false)</dd>
+<dt>anonymize_ip</dt><dd>ANALYTICS_ANONYMIZE_IP (true)</dd>
+<dt>auto_track</dt><dd>ANALYTICS_AUTO_TRACK (true)</dd>
+<dt>debug</dt><dd>ANALYTICS_DEBUG (true on local environment)</dd>
+</dl>
+
+This behaviour was integrated with version 1.3.2.
 
 ## Usage
 
