@@ -410,7 +410,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             ? ''
             : sprintf(", {'userId': '%s'}", $this->userId);
 
-        if ($this->debug || App::environment('local')) {
+        if ($this->debug) {
             $script[] = "ga('create', '{$this->trackingId}', { 'cookieDomain': 'none' }, '{$this->trackerName}'{$trackingUserId});";
         } else {
             $script[] = "ga('create', '{$this->trackingId}', '{$this->trackingDomain}', '{$this->trackerName}'{$trackingUserId});";
