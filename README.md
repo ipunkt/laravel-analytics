@@ -473,10 +473,11 @@ Add ecommerce transaction to tracking code.
      * @param  null|float $revenue
      * @param  null|float $shipping
      * @param  null|float $tax
+     * @param  null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null);
+    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null);
 
 Available since 1.2.2.
 
@@ -495,10 +496,11 @@ Add ecommerce item to tracking code.
      * @param  null|string $category
      * @param  null|float $price
      * @param  null|int $quantity
+     * @param  null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null);
+    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null);
 
 Available since 1.2.2.
 
