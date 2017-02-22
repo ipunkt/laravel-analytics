@@ -358,7 +358,7 @@ Context: Controller, Action code
 Removing of an user id is also possible.
 
 	/**
-	 * unsets an user id
+	 * unset an user id
 	 *
 	 * @return AnalyticsProviderInterface
 	 */
@@ -391,7 +391,7 @@ Context: Controller, Action code
 Removing of a campaign is also possible.
 
     /**
-     * unsets a possible given campaign
+     * unset a possible given campaign
      *
      * @return AnalyticsProviderInterface
      */
