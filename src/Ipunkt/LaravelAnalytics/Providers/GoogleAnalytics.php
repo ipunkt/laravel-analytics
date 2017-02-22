@@ -212,7 +212,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null)
+    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null)
     {
         // Call to enable ecommerce tracking automatically
         $this->enableEcommerceTracking();
@@ -235,6 +235,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $parameters['tax'] = $tax;
         }
 
+        if (!is_null($currency)) {
+            $parameters['currency'] = $currency;
+        }
+        
         $jsonParameters = json_encode($parameters);
         $trackingCode = "ga('ecommerce:addTransaction', {$jsonParameters});";
 
@@ -255,7 +259,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null)
+    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null)
     {
         // Call to enable ecommerce tracking automatically
         $this->enableEcommerceTracking();
@@ -279,6 +283,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 
         if (!is_null($quantity)) {
             $parameters['quantity'] = $quantity;
+        }
+
+        if (!is_null($currency)) {
+            $parameters['currency'] = $currency;
         }
 
         $jsonParameters = json_encode($parameters);
