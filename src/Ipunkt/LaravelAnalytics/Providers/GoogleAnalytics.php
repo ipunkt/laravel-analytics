@@ -204,15 +204,23 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     /**
      * ecommerce tracking - add transaction
      *
-     * @param  string $id
-     * @param  null|string $affiliation
-     * @param  null|float $revenue
-     * @param  null|float $shipping
-     * @param  null|float $tax
+     * @param string $id
+     * @param null|string $affiliation
+     * @param null|float $revenue
+     * @param null|float $shipping
+     * @param null|float $tax
+     * @param null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null)
+    public function ecommerceAddTransaction(
+        $id,
+        $affiliation = null,
+        $revenue = null,
+        $shipping = null,
+        $tax = null,
+        $currency = null
+    )
     {
         // Call to enable ecommerce tracking automatically
         $this->enableEcommerceTracking();
@@ -238,7 +246,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         if (!is_null($currency)) {
             $parameters['currency'] = $currency;
         }
-        
+
         $jsonParameters = json_encode($parameters);
         $trackingCode = "ga('ecommerce:addTransaction', {$jsonParameters});";
 
@@ -250,23 +258,32 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     /**
      * ecommerce tracking - add item
      *
-     * @param  string $id
-     * @param  string $name
-     * @param  null|string $sku
-     * @param  null|string $category
-     * @param  null|float $price
-     * @param  null|int $quantity
+     * @param string $id
+     * @param string $name
+     * @param null|string $sku
+     * @param null|string $category
+     * @param null|float $price
+     * @param null|int $quantity
+     * @param null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null)
+    public function ecommerceAddItem(
+        $id,
+        $name,
+        $sku = null,
+        $category = null,
+        $price = null,
+        $quantity = null,
+        $currency = null
+    )
     {
         // Call to enable ecommerce tracking automatically
         $this->enableEcommerceTracking();
 
         $parameters = [
-            'id'    => $id,
-            'name'  => $name,
+            'id' => $id,
+            'name' => $name,
         ];
 
         if (!is_null($sku)) {
@@ -596,7 +613,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
-     * unsets a possible given user id
+     * unset a possible given user id
      *
      * @return AnalyticsProviderInterface
      */
@@ -640,7 +657,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     }
 
     /**
-     * unsets a possible given campaign
+     * unset a possible given campaign
      *
      * @return AnalyticsProviderInterface
      */
@@ -649,36 +666,6 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $this->campaign = null;
 
         return $this;
-    }
-
-    /**
-     * returns start block
-     *
-     * @return string
-     */
-    protected function _getJavascriptTemplateBlockBegin()
-    {
-        $appendix = $this->debug ? '_debug' : '';
-
-        $scriptTag = ($this->cspNonce === null)
-            ? '<script>'
-            : '<script nonce="' . $this->cspNonce . '">';
-
-        return ($this->renderScriptBlock)
-            ? $scriptTag . "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
-            : '';
-    }
-
-    /**
-     * returns end block
-     *
-     * @return string
-     */
-    protected function _getJavascriptTemplateBlockEnd()
-    {
-        return ($this->renderScriptBlock)
-            ? '</script>'
-            : '';
     }
 
     /**
@@ -715,5 +702,35 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     public function cspNonce()
     {
         return $this->cspNonce;
+    }
+
+    /**
+     * returns start block
+     *
+     * @return string
+     */
+    protected function _getJavascriptTemplateBlockBegin()
+    {
+        $appendix = $this->debug ? '_debug' : '';
+
+        $scriptTag = ($this->cspNonce === null)
+            ? '<script>'
+            : '<script nonce="' . $this->cspNonce . '">';
+
+        return ($this->renderScriptBlock)
+            ? $scriptTag . "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics{$appendix}.js','ga');"
+            : '';
+    }
+
+    /**
+     * returns end block
+     *
+     * @return string
+     */
+    protected function _getJavascriptTemplateBlockEnd()
+    {
+        return ($this->renderScriptBlock)
+            ? '</script>'
+            : '';
     }
 }

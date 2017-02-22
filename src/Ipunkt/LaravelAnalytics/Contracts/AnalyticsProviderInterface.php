@@ -178,29 +178,31 @@ interface AnalyticsProviderInterface
     /**
      * ecommerce tracking - add transaction
      *
-     * @param  string $id
-     * @param  null|string $affiliation
-     * @param  null|float $revenue
-     * @param  null|float $shipping
-     * @param  null|float $tax
+     * @param string $id
+     * @param null|string $affiliation
+     * @param null|float $revenue
+     * @param null|float $shipping
+     * @param null|float $tax
+     * @param null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null);
+    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null);
 
     /**
      * ecommerce tracking - add item
      *
-     * @param  string $id
-     * @param  string $name
-     * @param  null|string $sku
-     * @param  null|string $category
-     * @param  null|float $price
-     * @param  null|int $quantity
+     * @param string $id
+     * @param string $name
+     * @param null|string $sku
+     * @param null|string $category
+     * @param null|float $price
+     * @param null|int $quantity
+     * @param null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null);
+    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null);
 
     /**
      * sets custom dimensions

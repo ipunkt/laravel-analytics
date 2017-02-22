@@ -468,17 +468,20 @@ Add ecommerce transaction to tracking code.
     /**
      * ecommerce tracking - add transaction
      *
-     * @param  string $id
-     * @param  null|string $affiliation
-     * @param  null|float $revenue
-     * @param  null|float $shipping
-     * @param  null|float $tax
+     * @param string $id
+     * @param null|string $affiliation
+     * @param null|float $revenue
+     * @param null|float $shipping
+     * @param null|float $tax
+     * @param null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null);
+    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null);
 
-Available since 1.2.2.
+Available since 1.2.2. Parameter `$currency` since 1.3.3.
+
+Since version 1.3.3 the [multi currency](https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency) tracking is supported with currency values defined [here](https://support.google.com/analytics/answer/6205902#supported-currencies).
 
 ### Analytics::ecommerceAddItem()
 
@@ -489,18 +492,21 @@ Add ecommerce item to tracking code.
     /**
      * ecommerce tracking - add item
      *
-     * @param  string $id
-     * @param  string $name
-     * @param  null|string $sku
-     * @param  null|string $category
-     * @param  null|float $price
-     * @param  null|int $quantity
+     * @param string $id
+     * @param string $name
+     * @param null|string $sku
+     * @param null|string $category
+     * @param null|float $price
+     * @param null|int $quantity
+     * @param null|string $currency
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null);
+    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null);
 
-Available since 1.2.2.
+Available since 1.2.2. Parameter `$currency` since 1.3.3.
+
+Since version 1.3.3 the [multi currency](https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency) tracking is supported with currency values defined [here](https://support.google.com/analytics/answer/6205902#supported-currencies).
 
 ### Analytics::setCustom()
 
