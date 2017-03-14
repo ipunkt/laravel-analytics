@@ -92,7 +92,7 @@ This behaviour was integrated with version 1.3.2.
 ### Other
 
 <dl>
-<dt>disable_script_block</dt><dd>You can disable script block generation by configuration value. Default ist false.</dd>
+<dt>disable_script_block</dt><dd>You can disable script block generation by configuration value, possible values: <code>(true|false)</code>, false by default.</dd>
 </dl>
 
 ## Usage
