@@ -59,8 +59,16 @@ class AnalyticsServiceProvider extends ServiceProvider
                 $providerConfig = Config::get($packageNamespace . 'analytics.configurations.' . $provider);
             }
 
-            //	return an instance
-            return new $providerClass($providerConfig);
+            //	make provider instance
+            $instance = new $providerClass($providerConfig);
+
+            //	check if we want to prematurely disable the script block
+            if (Config::get($packageNamespace . 'analytics.disable_script_block', false)) {
+                $instance->disableScriptBlock();
+            }
+
+            //	return the provider instance
+            return $instance;
         });
     }
 
