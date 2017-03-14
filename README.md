@@ -89,6 +89,12 @@ Here is the mapping of configuration value and the environment-based names:
 
 This behaviour was integrated with version 1.3.2.
 
+### Other
+
+<dl>
+<dt>disable_script_block</dt><dd>You can disable script block generation by configuration value. Default ist false.</dd>
+</dl>
+
 ## Usage
 
 In controller action (or anywhere else) use following statement to track an event or page view:
