@@ -124,7 +124,7 @@ In your view or layout template (e.g. a blade template) use the following statem
 
 	{!! Analytics::render() !!}
 
-For Google Analytics you should place the statement right behind the `body` tag
+For Google Analytics you should place the statement right below the `body` tag
 
 	<body>{!! Analytics::render() !!}
 
