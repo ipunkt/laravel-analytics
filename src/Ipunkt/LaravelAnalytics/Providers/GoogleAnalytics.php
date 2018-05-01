@@ -22,7 +22,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      *
      * @var string
      */
-    private $trackingId;
+    protected $trackingId;
 
     /**
      * tracking domain
