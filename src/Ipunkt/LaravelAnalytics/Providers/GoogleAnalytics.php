@@ -733,4 +733,16 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             ? '</script>'
             : '';
     }
+
+	/**
+	 * set a custom tracking ID (the UA-XXXXXXXX-1 code)
+	 *
+	 * @param string $trackingId
+	 *
+	 * @return AnalyticsProviderInterface
+	 */
+	public function setTrackingId( $trackingId ) {
+		$this->trackingId = $trackingId;
+		return $this;
+	}
 }

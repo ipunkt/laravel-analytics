@@ -306,4 +306,15 @@ class NoAnalytics implements AnalyticsProviderInterface
     {
         return null;
     }
+
+	/**
+	 * set a custom tracking ID (the UA-XXXXXXXX-1 code)
+	 *
+	 * @param string $trackingId
+	 *
+	 * @return AnalyticsProviderInterface
+	 */
+	public function setTrackingId( $trackingId ) {
+		return $this;
+	}
 }

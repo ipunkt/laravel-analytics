@@ -213,6 +213,15 @@ interface AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null);
 
+	/**
+	 * set a custom tracking ID (the UA-XXXXXXXX-1 code)
+	 *
+	 * @param string $trackingId
+	 *
+	 * @return AnalyticsProviderInterface
+	 */
+    public function setTrackingId($trackingId);
+
     /**
      * enables Content Security Polity and sets nonce
      *
