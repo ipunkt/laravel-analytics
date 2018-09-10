@@ -8,6 +8,8 @@
 composer require ipunkt/laravel-analytics
 ```
 
+Since Laravel supports the auto-discovery feature you do not need to add a provider and an alias. For older Laravel versions you have to do the following:
+
 Add to `providers` in `config/app.php`:
 
 ```
