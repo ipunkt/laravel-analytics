@@ -269,28 +269,28 @@ For tracking a custom script line within the embedded analytics code.
 
 Context: Controller, Action code
 
-Enabling the auto tracking, overriding the configuration setting `auto_track`.
+Enabling display features, overriding the configuration setting `display_features`.
 
 	/**
 	 * enable display features
 	 *
 	 * @return GoogleAnalytics
 	 */
-	public function enableAutoTracking();
+	public function enableDisplayFeatures();
 
 
 ### Analytics::disableDisplayFeatures()
 
 Context: Controller, Action code
 
-Disabling the auto tracking, overriding the configuration setting `auto_track`.
+Disabling display features, overriding the configuration setting `display_features`.
 
 	/**
 	 * disable display features
 	 *
 	 * @return GoogleAnalytics
 	 */
-	public function disableAutoTracking();
+	public function disableDisplayFeatures();
 
 ### Analytics::enableAutoTracking()
 
