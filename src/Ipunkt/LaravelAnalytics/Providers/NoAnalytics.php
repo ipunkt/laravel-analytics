@@ -316,5 +316,16 @@ class NoAnalytics implements AnalyticsProviderInterface
 	 */
 	public function setTrackingId( $trackingId ) {
 		return $this;
+    }
+
+    /**
+     * set a custom optimize ID (the GTM-XXXXXX code)
+     *
+     * @param string $optimizeId
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function setOptimizeId( $optimizeId ) {
+        return $this;
 	}
 }

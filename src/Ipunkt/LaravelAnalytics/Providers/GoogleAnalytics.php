@@ -25,6 +25,13 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     private $trackingId;
 
     /**
+     * optimize id
+     *
+     * @var string
+     */
+    private $optimizeId;
+
+    /**
      * tracking domain
      *
      * @var string
@@ -132,6 +139,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     public function __construct(array $options = [])
     {
         $this->trackingId = array_get($options, 'tracking_id');
+        $this->optimizeId = array_get($options, 'optimize_id');
         $this->trackingDomain = array_get($options, 'tracking_domain', 'auto');
         $this->trackerName = array_get($options, 'tracker_name', 't0');
         $this->displayFeatures = array_get($options, 'display_features', false);
@@ -449,6 +457,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             $script[] = "ga('require', 'displayfeatures');";
         }
 
+        if ($this->optimizeId) {
+            $script[] = "ga('require', '{$this->optimizeId}');";
+        }
+
         if ($this->anonymizeIp) {
             $script[] = "ga('set', 'anonymizeIp', true);";
         }
@@ -744,5 +756,17 @@ class GoogleAnalytics implements AnalyticsProviderInterface
 	public function setTrackingId( $trackingId ) {
 		$this->trackingId = $trackingId;
 		return $this;
-	}
+    }
+
+    /**
+     * set a custom optimize ID (the GTM-XXXXXX code)
+     *
+     * @param string $optimizeId
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function setOptimizeId( $optimizeId ) {
+        $this->optimizeId = $optimizeId;
+        return $this;
+    }
 }

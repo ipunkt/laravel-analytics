@@ -223,6 +223,15 @@ interface AnalyticsProviderInterface
     public function setTrackingId($trackingId);
 
     /**
+     * set a custom optimize ID (the GTM-XXXXXX code)
+     *
+     * @param string $optimizeId
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function setOptimizeId($optimizeId);
+
+    /**
      * enables Content Security Polity and sets nonce
      *
      * @return AnalyticsProviderInterface
