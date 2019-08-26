@@ -72,6 +72,7 @@ Then edit `analytics.php` in `config` to your needs. We do config merge in the s
 <dt>anonymize_ip</dt><dd>anonymize users ip, possible values: <code>(true|false)</code></dd>
 <dt>auto_track</dt><dd>auto tracking current pageview, possible values: <code>(true|false)</code></dd>
 <dt>debug</dt><dd>enabling the debug mode, possible values: <code>(true|false)</code></dd>
+<dt>optimize_id</dt><dd>enabling the optimze feature of [Google Analytics](https://support.google.com/optimize/answer/6262084)</dd>
 </dl>
 
 ### Environment-based Configuration
@@ -87,6 +88,7 @@ Here is the mapping of configuration value and the environment-based names:
 <dt>anonymize_ip</dt><dd>ANALYTICS_ANONYMIZE_IP (true)</dd>
 <dt>auto_track</dt><dd>ANALYTICS_AUTO_TRACK (true)</dd>
 <dt>debug</dt><dd>ANALYTICS_DEBUG (true on local environment)</dd>
+<dt>optimize_id</dt><dd>ANALYTICS_OPTIMIZE_ID</dd>
 </dl>
 
 This behaviour was integrated with version 1.3.2.
@@ -577,3 +579,16 @@ Returns the nonce generated for the Content Security Policy Header.
     public function cspNonce();
 
 Available since 1.3.0.
+
+### Analytics::setOptimizeId()
+
+    /**
+     * set a custom optimize ID (the GTM-XXXXXX code)
+     *
+     * @param string $optimizeId
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function setOptimizeId($optimizeId);
+
+Available sind 1.6.0.
