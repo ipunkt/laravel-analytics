@@ -15,6 +15,7 @@ return [
 		/**
 		 * The Google Analytics provider supports the following properties:
 		 * - tracking_id (string)
+		 * - optimize_id (string)
 		 * - tracking_domain (string:auto) - default will be 'auto' if config property not exists
 		 * - tracker_name (string:t0) - default will be 't0' if config property not exists
 		 * - display_features (bool) - default will be false if no config property exists
@@ -29,6 +30,12 @@ return [
 			 * Format example: UA-XXXXXXXX-1
 			 */
 			'tracking_id' => env('ANALYTICS_TRACKING_ID', 'UA-XXXXXXXX-1'),
+
+			/**
+			 * Optimize ID
+			 * Format example: GTM-XXXXXX
+			 */
+			'optimize_id' => env('ANALYTICS_OPTIMIZE_ID', ''),
 
 			/**
 			 * Tracking Domain
