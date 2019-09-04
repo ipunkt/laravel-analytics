@@ -32,14 +32,14 @@
 		"issues": "https://github.com/ipunkt/laravel-analytics/issues",
 		"source": "https://github.com/ipunkt/laravel-analytics/archive/master.zip"
 	},
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Ipunkt\\LaravelAnalytics\\AnalyticsServiceProvider"
-            ],
-	      	"aliases":{
-	        	"Analytics": "Ipunkt\\LaravelAnalytics\\AnalyticsFacade"
-	      	}
-        }
-    }
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Ipunkt\\LaravelAnalytics\\AnalyticsServiceProvider"
+			],
+			"aliases": {
+				"Analytics": "Ipunkt\\LaravelAnalytics\\AnalyticsFacade"
+			}
+		}
+	},
 }
