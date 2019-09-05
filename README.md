@@ -8,19 +8,7 @@
 composer require ipunkt/laravel-analytics
 ```
 
-Since Laravel supports the auto-discovery feature you do not need to add a provider and an alias. For older Laravel versions you have to do the following:
-
-Add to `providers` in `config/app.php`:
-
-```
-Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
-```
-
-Add to `aliases` in `config/app.php`:
-
-```
-'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,
-```
+You can use the facade `Analytics`.
 
 To your `.env` add these variables and set them to your liking:
 
@@ -138,7 +126,7 @@ For Google Analytics you should place the statement right below the `body` tag
 
 	<body>{!! Analytics::render() !!}
 
-### Dependency Injection (since 1.2.0)
+### Dependency Injection
 
 You can inject the analytics provider by referencing the interface:
 
@@ -365,8 +353,6 @@ This user tracking is implemented at [Google Analytics](https://developers.googl
 	 */
 	public function setUserId($userId);
 
-Available since 1.1.4.
-
 ### Analytics::unsetUserId()
 
 Context: Controller, Action code
@@ -379,8 +365,6 @@ Removing of an user id is also possible.
 	 * @return AnalyticsProviderInterface
 	 */
 	public function unsetUserId(); 
-
-Available since 1.1.4.
 
 ### Analytics::setCampaign($campaign)
 
@@ -398,8 +382,6 @@ This campaign tracking is documented for [Google Analytics](https://developers.g
      */
     public function setCampaign(Campaign $campaign);
 
-Available since 1.2.0.
-
 ### Analytics::unsetCampaign()
 
 Context: Controller, Action code
@@ -412,8 +394,6 @@ Removing of a campaign is also possible.
      * @return AnalyticsProviderInterface
      */
     public function unsetCampaign();
-
-Available since 1.2.0.
 
 ### Analytics::enableScriptBlock()
 
@@ -428,8 +408,6 @@ Enabling the rendering of the `<script>...</script>` block tags. Is enabled by d
 	 */
 	public function enableScriptBlock();
 
-Available since 1.2.1.
-
 ### Analytics::disableScriptBlock()
 
 Context: Controller, Action code
@@ -442,8 +420,6 @@ Disabling the rendering of the `<script>...</script>` block tags.
 	 * @return GoogleAnalytics
 	 */
 	public function disableScriptBlock();
-
-Available since 1.2.1.
 
 ### Analytics::enableEcommerceTracking()
 
@@ -458,8 +434,6 @@ Enabling ecommerce tracking.
      */
     public function enableEcommerceTracking();
 
-Available since 1.2.2.
-
 ### Analytics::disableEcommerceTracking()
 
 Context: Controller, Action code
@@ -472,8 +446,6 @@ Disabling ecommerce tracking.
      * @return AnalyticsProviderInterface
      */
     public function disableEcommerceTracking();
-
-Available since 1.2.2.
 
 ### Analytics::ecommerceAddTransaction()
 
@@ -495,9 +467,7 @@ Add ecommerce transaction to tracking code.
      */
     public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null);
 
-Available since 1.2.2. Parameter `$currency` since 1.3.3.
-
-Since version 1.3.3 the [multi currency](https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency) tracking is supported with currency values defined [here](https://support.google.com/analytics/answer/6205902#supported-currencies).
+The [multi currency](https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency) tracking is supported with currency values defined [here](https://support.google.com/analytics/answer/6205902#supported-currencies).
 
 ### Analytics::ecommerceAddItem()
 
@@ -520,9 +490,7 @@ Add ecommerce item to tracking code.
      */
     public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null);
 
-Available since 1.2.2. Parameter `$currency` since 1.3.3.
-
-Since version 1.3.3 the [multi currency](https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency) tracking is supported with currency values defined [here](https://support.google.com/analytics/answer/6205902#supported-currencies).
+The [multi currency](https://developers.google.com/analytics/devguides/collection/analyticsjs/ecommerce#multicurrency) tracking is supported with currency values defined [here](https://support.google.com/analytics/answer/6205902#supported-currencies).
 
 ### Analytics::setCustom()
 
@@ -539,8 +507,6 @@ Adds custom settings.
      */
     public function setCustom($dimension, $value = null)
 
-Available since 1.2.2.
-
 ### Analytics::withCSP()
 
 Context: Controller, Action code
@@ -553,8 +519,6 @@ Enabling the Content Security Policy feature.
      * @return AnalyticsProviderInterface
      */
     public function withCSP();
-
-Available since 1.3.0.
 
 ### Analytics::withoutCSP()
 
@@ -569,8 +533,6 @@ Disabling the Content Security Policy feature.
      */
     public function withoutCSP();
 
-Available since 1.3.0.
-
 ### Analytics::cspNonce()
 
 Context: Controller, Action code
@@ -584,8 +546,6 @@ Returns the nonce generated for the Content Security Policy Header.
      */
     public function cspNonce();
 
-Available since 1.3.0.
-
 ### Analytics::setOptimizeId()
 
     /**
@@ -596,5 +556,3 @@ Available since 1.3.0.
      * @return AnalyticsProviderInterface
      */
     public function setOptimizeId($optimizeId);
-
-Available sind 1.6.0.
