@@ -12,9 +12,9 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"illuminate/support": "~5.0",
+		"illuminate/config": "~5.0",
 		"illuminate/session": "~5.0",
-		"illuminate/config": "~5.0"
+		"illuminate/support": "~5.0"
 	},
 	"require-dev": {
 		"laravel/framework": "~5.0"
@@ -32,14 +32,14 @@
 		"issues": "https://github.com/ipunkt/laravel-analytics/issues",
 		"source": "https://github.com/ipunkt/laravel-analytics/archive/master.zip"
 	},
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Ipunkt\\LaravelAnalytics\\AnalyticsServiceProvider"
-            ],
-	      	"aliases":{
-	        	"Analytics": "Ipunkt\\LaravelAnalytics\\AnalyticsFacade"
-	      	}
-        }
-    }
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Ipunkt\\LaravelAnalytics\\AnalyticsServiceProvider"
+			],
+			"aliases": {
+				"Analytics": "Ipunkt\\LaravelAnalytics\\AnalyticsFacade"
+			}
+		}
+	},
 }
