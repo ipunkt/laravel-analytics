@@ -104,7 +104,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     /**
      * render script block
      *
-     * @return $this
+     * @return NoAnalytics
      */
     public function enableScriptBlock()
     {
@@ -114,7 +114,7 @@ class NoAnalytics implements AnalyticsProviderInterface
     /**
      * do not render script block
      *
-     * @return $this
+     * @return NoAnalytics
      */
     public function disableScriptBlock()
     {
@@ -254,8 +254,14 @@ class NoAnalytics implements AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null)
-    {
+    public function ecommerceAddTransaction(
+        $id,
+        $affiliation = null,
+        $revenue = null,
+        $shipping = null,
+        $tax = null,
+        $currency = null
+    ) {
         return $this;
     }
 
@@ -272,8 +278,15 @@ class NoAnalytics implements AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null)
-    {
+    public function ecommerceAddItem(
+        $id,
+        $name,
+        $sku = null,
+        $category = null,
+        $price = null,
+        $quantity = null,
+        $currency = null
+    ) {
         return $this;
     }
 
@@ -307,15 +320,16 @@ class NoAnalytics implements AnalyticsProviderInterface
         return null;
     }
 
-	/**
-	 * set a custom tracking ID (the UA-XXXXXXXX-1 code)
-	 *
-	 * @param string $trackingId
-	 *
-	 * @return AnalyticsProviderInterface
-	 */
-	public function setTrackingId( $trackingId ) {
-		return $this;
+    /**
+     * set a custom tracking ID (the UA-XXXXXXXX-1 code)
+     *
+     * @param string $trackingId
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function setTrackingId($trackingId)
+    {
+        return $this;
     }
 
     /**
@@ -325,7 +339,8 @@ class NoAnalytics implements AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function setOptimizeId( $optimizeId ) {
+    public function setOptimizeId($optimizeId)
+    {
         return $this;
-	}
+    }
 }

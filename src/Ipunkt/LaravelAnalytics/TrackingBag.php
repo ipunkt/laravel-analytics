@@ -2,8 +2,8 @@
 
 namespace Ipunkt\LaravelAnalytics;
 
+use Illuminate\Support\Facades\Session;
 use Ipunkt\LaravelAnalytics\Contracts\TrackingBagInterface;
-use Session;
 
 /**
  * Class TrackingBag
@@ -39,7 +39,7 @@ class TrackingBag implements TrackingBagInterface
     }
 
     /**
-     * returns all trackings
+     * returns all trackings with forgetting it
      *
      * @return array
      */

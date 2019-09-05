@@ -3,6 +3,7 @@
 namespace Ipunkt\LaravelAnalytics;
 
 use Illuminate\Support\Facades\Facade;
+use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 
 /**
  * Class AnalyticsFacade
@@ -18,6 +19,6 @@ class AnalyticsFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface';
+        return AnalyticsProviderInterface::class;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Ipunkt\LaravelAnalytics;
 
-use Config;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class AnalyticsServiceProvider extends ServiceProvider
@@ -21,12 +21,6 @@ class AnalyticsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->isLaravel4()) {
-            $this->package('ipunkt/laravel-analytics');
-
-            return;
-        }
-
         $config = realpath(__DIR__ . '/../../config/analytics.php');
 
         $this->mergeConfigFrom($config, 'analytics');
@@ -43,33 +37,30 @@ class AnalyticsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $packageNamespace = $this->isLaravel4() ? 'laravel-analytics::' : '';
+        $this->app->singleton('Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface',
+            function () {
+                // get analytics provider name
+                $provider = Config::get('analytics.provider');
 
-        $this->app->singleton('Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface', function () use ($packageNamespace) {
+                // make it a class
+                $providerClass = 'Ipunkt\LaravelAnalytics\Providers\\' . $provider;
 
-            //	get analytics provider name
-            $provider = Config::get($packageNamespace . 'analytics.provider');
+                // getting the config
+                $providerConfig = [];
+                if (Config::has('analytics.configurations.' . $provider)) {
+                    $providerConfig = Config::get('analytics.configurations.' . $provider);
+                }
 
-            //	make it a class
-            $providerClass = 'Ipunkt\LaravelAnalytics\Providers\\' . $provider;
+                // make provider instance
+                $instance = new $providerClass($providerConfig);
 
-            //	getting the config
-            $providerConfig = [];
-            if (Config::has($packageNamespace . 'analytics.configurations.' . $provider)) {
-                $providerConfig = Config::get($packageNamespace . 'analytics.configurations.' . $provider);
-            }
+                // check if we want to prematurely disable the script block
+                if (Config::get('analytics.disable_script_block', false)) {
+                    $instance->disableScriptBlock();
+                }
 
-            //	make provider instance
-            $instance = new $providerClass($providerConfig);
-
-            //	check if we want to prematurely disable the script block
-            if (Config::get($packageNamespace . 'analytics.disable_script_block', false)) {
-                $instance->disableScriptBlock();
-            }
-
-            //	return the provider instance
-            return $instance;
-        });
+                return $instance;
+            });
     }
 
     /**
@@ -80,15 +71,5 @@ class AnalyticsServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
-    }
-
-    /**
-     * are we on laravel 4
-     *
-     * @return bool
-     */
-    private function isLaravel4()
-    {
-        return version_compare(\Illuminate\Foundation\Application::VERSION, '5', '<');
     }
 }

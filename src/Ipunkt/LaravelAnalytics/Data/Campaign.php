@@ -139,7 +139,8 @@ class Campaign
      * sets keyword
      *
      * @param string $keyword
-     * @return $this
+     *
+     * @return \Ipunkt\LaravelAnalytics\Data\Campaign
      */
     public function setKeyword($keyword)
     {
@@ -161,7 +162,8 @@ class Campaign
      * sets content
      *
      * @param string $content
-     * @return $this
+     *
+     * @return \Ipunkt\LaravelAnalytics\Data\Campaign
      */
     public function setContent($content)
     {
@@ -183,7 +185,8 @@ class Campaign
      * sets id
      *
      * @param string $id
-     * @return $this
+     *
+     * @return \Ipunkt\LaravelAnalytics\Data\Campaign
      */
     public function setId($id)
     {

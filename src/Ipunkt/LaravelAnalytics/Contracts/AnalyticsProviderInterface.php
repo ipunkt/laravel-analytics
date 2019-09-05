@@ -82,14 +82,14 @@ interface AnalyticsProviderInterface
     /**
      * render script block
      *
-     * @return $this
+     * @return AnalyticsProviderInterface
      */
     public function enableScriptBlock();
 
     /**
      * do not render script block
      *
-     * @return $this
+     * @return AnalyticsProviderInterface
      */
     public function disableScriptBlock();
 
@@ -150,6 +150,7 @@ interface AnalyticsProviderInterface
      * sets a campaign
      *
      * @param Campaign $campaign
+     *
      * @return AnalyticsProviderInterface
      */
     public function setCampaign(Campaign $campaign);
@@ -187,7 +188,14 @@ interface AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddTransaction($id, $affiliation = null, $revenue = null, $shipping = null, $tax = null, $currency = null);
+    public function ecommerceAddTransaction(
+        $id,
+        $affiliation = null,
+        $revenue = null,
+        $shipping = null,
+        $tax = null,
+        $currency = null
+    );
 
     /**
      * ecommerce tracking - add item
@@ -202,7 +210,15 @@ interface AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function ecommerceAddItem($id, $name, $sku = null, $category = null, $price = null, $quantity = null, $currency = null);
+    public function ecommerceAddItem(
+        $id,
+        $name,
+        $sku = null,
+        $category = null,
+        $price = null,
+        $quantity = null,
+        $currency = null
+    );
 
     /**
      * sets custom dimensions
@@ -213,13 +229,13 @@ interface AnalyticsProviderInterface
      */
     public function setCustom($dimension, $value = null);
 
-	/**
-	 * set a custom tracking ID (the UA-XXXXXXXX-1 code)
-	 *
-	 * @param string $trackingId
-	 *
-	 * @return AnalyticsProviderInterface
-	 */
+    /**
+     * set a custom tracking ID (the UA-XXXXXXXX-1 code)
+     *
+     * @param string $trackingId
+     *
+     * @return AnalyticsProviderInterface
+     */
     public function setTrackingId($trackingId);
 
     /**

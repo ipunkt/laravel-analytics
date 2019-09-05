@@ -2,7 +2,6 @@
 
 namespace Ipunkt\LaravelAnalytics\Providers;
 
-use App;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
@@ -229,8 +228,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $shipping = null,
         $tax = null,
         $currency = null
-    )
-    {
+    ) {
         // Call to enable ecommerce tracking automatically
         $this->enableEcommerceTracking();
 
@@ -285,8 +283,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         $price = null,
         $quantity = null,
         $currency = null
-    )
-    {
+    ) {
         // Call to enable ecommerce tracking automatically
         $this->enableEcommerceTracking();
 
@@ -410,7 +407,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     /**
      * render script block
      *
-     * @return $this
+     * @return \Ipunkt\LaravelAnalytics\Providers\GoogleAnalytics
      */
     public function enableScriptBlock()
     {
@@ -422,7 +419,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     /**
      * do not render script block
      *
-     * @return $this
+     * @return \Ipunkt\LaravelAnalytics\Providers\GoogleAnalytics
      */
     public function disableScriptBlock()
     {
@@ -516,7 +513,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     /**
      * make the tracking measurement url insecure
      *
-     * @return $this
+     * @return \Ipunkt\LaravelAnalytics\Providers\GoogleAnalytics
      */
     public function unsecureMeasurementUrl()
     {
@@ -528,7 +525,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
     /**
      * use the secured version of the tracking measurement url
      *
-     * @return $this
+     * @return \Ipunkt\LaravelAnalytics\Providers\GoogleAnalytics
      */
     public function secureMeasurementUrl()
     {
@@ -550,8 +547,6 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      * @param array $params
      *
      * @return string
-     *
-     * @experimental
      */
     public function trackMeasurementUrl(
         $metricName,
@@ -560,8 +555,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
         Campaign $campaign,
         $clientId = null,
         array $params = []
-    )
-    {
+    ) {
         $uniqueId = ($clientId !== null) ? $clientId : uniqid('track_');
 
         if ($event->getLabel() === '') {
@@ -685,6 +679,7 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      * enables Content Security Polity and sets nonce
      *
      * @return AnalyticsProviderInterface
+     * @throws \Exception
      */
     public function withCSP()
     {
@@ -747,16 +742,18 @@ class GoogleAnalytics implements AnalyticsProviderInterface
             : '';
     }
 
-	/**
-	 * set a custom tracking ID (the UA-XXXXXXXX-1 code)
-	 *
-	 * @param string $trackingId
-	 *
-	 * @return AnalyticsProviderInterface
-	 */
-	public function setTrackingId( $trackingId ) {
-		$this->trackingId = $trackingId;
-		return $this;
+    /**
+     * set a custom tracking ID (the UA-XXXXXXXX-1 code)
+     *
+     * @param string $trackingId
+     *
+     * @return AnalyticsProviderInterface
+     */
+    public function setTrackingId($trackingId)
+    {
+        $this->trackingId = $trackingId;
+
+        return $this;
     }
 
     /**
@@ -766,8 +763,10 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      *
      * @return AnalyticsProviderInterface
      */
-    public function setOptimizeId( $optimizeId ) {
+    public function setOptimizeId($optimizeId)
+    {
         $this->optimizeId = $optimizeId;
+
         return $this;
     }
 }
