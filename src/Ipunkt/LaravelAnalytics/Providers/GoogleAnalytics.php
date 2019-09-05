@@ -3,6 +3,7 @@
 namespace Ipunkt\LaravelAnalytics\Providers;
 
 use App;
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Ipunkt\LaravelAnalytics\Contracts\AnalyticsProviderInterface;
 use Ipunkt\LaravelAnalytics\Data\Campaign;
@@ -138,14 +139,14 @@ class GoogleAnalytics implements AnalyticsProviderInterface
      */
     public function __construct(array $options = [])
     {
-        $this->trackingId = array_get($options, 'tracking_id');
-        $this->optimizeId = array_get($options, 'optimize_id');
-        $this->trackingDomain = array_get($options, 'tracking_domain', 'auto');
-        $this->trackerName = array_get($options, 'tracker_name', 't0');
-        $this->displayFeatures = array_get($options, 'display_features', false);
-        $this->anonymizeIp = array_get($options, 'anonymize_ip', false);
-        $this->autoTrack = array_get($options, 'auto_track', false);
-        $this->debug = array_get($options, 'debug', false);
+        $this->trackingId = Arr::get($options, 'tracking_id');
+        $this->optimizeId = Arr::get($options, 'optimize_id');
+        $this->trackingDomain = Arr::get($options, 'tracking_domain', 'auto');
+        $this->trackerName = Arr::get($options, 'tracker_name', 't0');
+        $this->displayFeatures = Arr::get($options, 'display_features', false);
+        $this->anonymizeIp = Arr::get($options, 'anonymize_ip', false);
+        $this->autoTrack = Arr::get($options, 'auto_track', false);
+        $this->debug = Arr::get($options, 'debug', false);
 
         if ($this->trackingId === null) {
             throw new InvalidArgumentException('Argument tracking_id can not be null');
