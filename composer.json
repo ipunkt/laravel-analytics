@@ -41,5 +41,5 @@
 				"Analytics": "Ipunkt\\LaravelAnalytics\\AnalyticsFacade"
 			}
 		}
-	},
+	}
 }
