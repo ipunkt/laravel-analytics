@@ -32,7 +32,7 @@ Finally, just above your `</head>` closing tag place, this code:
 Add to your composer.json following lines
 
 	"require": {
-		"ipunkt/laravel-analytics": "~2.0"
+		"ipunkt/laravel-analytics": "~3.0"
 	}
 
 Add `Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,` to `providers` in `app/config/app.php`.
@@ -43,6 +43,18 @@ Run `php artisan vendor:publish --provider="Ipunkt\LaravelAnalytics\AnalyticsSer
 
 Then edit `analytics.php` in `config` to your needs. We do config merge in the service provider, so your local settings 
  will stay the same.
+
+For laravel 7.x please use the 3.x release.
+
+	"require": {
+		"ipunkt/laravel-analytics": "~3.0"
+	}
+
+For laravel 6.x please use the 3.x release.
+
+	"require": {
+		"ipunkt/laravel-analytics": "~2.0"
+	}
 
 For php < 7.2 or laravel < 6.0 please use the 1.x release.
 
