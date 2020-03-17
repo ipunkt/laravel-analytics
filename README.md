@@ -50,7 +50,7 @@ For laravel 7.x please use the 3.x release.
 		"ipunkt/laravel-analytics": "~3.0"
 	}
 
-For laravel 6.x please use the 3.x release.
+For laravel 6.x please use the 2.x release.
 
 	"require": {
 		"ipunkt/laravel-analytics": "~2.0"
