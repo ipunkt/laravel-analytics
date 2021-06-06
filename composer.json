@@ -12,12 +12,12 @@
 	],
 	"require": {
 		"php": "^7.2 || ^8.0",
-		"illuminate/config": "~5.0 || ^6.0 || ^7.0 || ^8.0",
-		"illuminate/session": "~5.0 || ^6.0 || ^7.0 || ^8.0",
-		"illuminate/support": "~5.0 || ^6.0 || ^7.0 || ^8.0"
+		"illuminate/config": "~5.0 || ^6.20 || ^7.24 || ^8.40",
+		"illuminate/session": "~5.0 || ^6.20 || ^7.24 || ^8.40",
+		"illuminate/support": "~5.0 || ^6.20 || ^7.24 || ^8.40"
 	},
 	"require-dev": {
-		"laravel/framework": "~5.0 || ^6.0 || ^7.0 || ^8.0"
+		"laravel/framework": "~5.0 || ^6.20 || ^7.24 || ^8.40"
 	},
 	"autoload": {
 		"psr-0": {
